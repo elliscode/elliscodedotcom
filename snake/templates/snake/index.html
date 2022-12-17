@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Snake Game</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+	{% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'snake/css/stylesheet.css' %}" />
+</head>
+
+<body>
+	<div id="board-background">
+		<div id="visual-gameboard-div">
+		</div>
+		<canvas id="game-board">
+		</canvas>
+		<div id="footer">
+			<p id="footer-p"><span id="footer-span"></span></p>
+		</div>
+		<div id="header">
+			<p id="header-p">Score: <span id="score">0</span></p>
+		</div>
+	</div>
+	<div id="popup-background">
+	</div>
+	<div id="restart-game-div" class="statusDiv">
+		<h2>You died! &#128077;</h2>
+		<p><button id="restart-start-game-button" class="button" onclick="Snake.startGame();">Play again</button></p>
+		<p><button id="restart-main-menu-button" class="button" onclick="Snake.mainMenu();">Main Menu</button></p>
+	</div>
+	<div id="pause-game-div" class="statusDiv">
+		<h2>Paused</h2>
+		<p><button id="pause-resume-button" class="button" onclick="Snake.resumeGame();">Resume</button></p>
+	</div>
+	<div id="menu-div" class="statusDiv">
+		<h2>&#x1F40D; Snake &#x1F40D;</h2>
+		<p><button id="start-game-button" class="button" onclick="Snake.startGame();">Start</button></p>
+		<p><button id="difficulty-button" class="button" onclick="Interface.displayPopup('difficulty');">Set Difficulty</button></p>
+	</div>
+	<div id="difficulty-div" class="statusDiv">
+		<h2>Set Difficulty</h2>
+		<p><button id="easy" class="button" onclick="Snake.setPeriod(200);Interface.displayPopup('menu');">Easy</button></p>
+		<p><button id="medium" class="button" onclick="Snake.setPeriod(140);Interface.displayPopup('menu');">Medium</button></p>
+		<p><button id="hard" class="button" onclick="Snake.setPeriod(80);Interface.displayPopup('menu');">Hard</button></p>
+	</div>
+</body>
+<script src="{% static 'snake/js/Direction.js' %}"></script>
+<script src="{% static 'snake/js/QueuedInput.js' %}"></script>
+<script src="{% static 'snake/js/Snake.js' %}"></script>
+<script src="{% static 'snake/js/GameBoard.js' %}"></script>
+<script src="{% static 'snake/js/Interface.js' %}"></script>
+<script>
+	Snake.createSnake();
+	Interface.onResize();
+	document.addEventListener('touchstart', emptyTouchStart, {passive: false});
+	document.addEventListener('touchend', emptyTouchEnd, {passive: false});
+	Snake.mainMenu()
+	setTimeout(Interface.onResize, 200);
+	window.onresize = function () {
+		Interface.onResize();
+	};
+	setInterval(Interface.onResize, 1000);
+</script>
+
+</html>

@@ -21,4 +21,5 @@ urlpatterns = [
     path('', include('home.urls')),
     path('foursquares', include('foursquares.urls')),
     path('turtletime', include('turtletime.urls')),
+    path('snake', include('snake.urls')),
 ]
