@@ -1,0 +1,51 @@
+body {
+    background-color:rgb(119, 119, 119);
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+#steven-states {
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+}
+
+.center-text {
+    position:absolute;
+    bottom:0;
+    left:0;
+    width:100%;
+    line-height: 1;
+    color:rgb(255,255,255);
+    padding:0;
+    margin:0;
+    text-align:center;
+}
+
+#steven-text {
+    font-family:"Arial Black", Arial, sans-serif;
+    font-weight:900;
+}
+
+#start-button {
+    font-family:Arial, sans-serif;
+    font-weight:400;
+}
+
+#score {
+    display:none;
+    top:0;
+    left:0;
+    color:rgb(255,255,255);
+    font-family:Arial, sans-serif;
+}
+
+#score-text {
+    font-family:"Arial Black", Arial, sans-serif;
+    font-weight:900;
+}

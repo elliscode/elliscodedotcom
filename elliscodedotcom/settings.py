@@ -64,6 +64,7 @@ INSTALLED_APPS = [
     'foursquares',
     'turtletime',
     'snake',
+    'stevenstates',
 ]
 
 MIDDLEWARE = [
