@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Four Squares</title>
+	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, initial-scale=1.0" />
+    {% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'foursquares/css/stylesheet.css' %}">
+</head>
+
+<body id="body">
+	<canvas class="pieces" id="game-canvas"></canvas>
+	<div class="text" id="next-three-text">Next</div>
+	<canvas class="pieces" id="next-three"></canvas>
+	<div style="z-index:2;" id="grey-background"></div>
+	<div style="z-index:3;" class="text" id="hold-piece-text">Hold</div>
+	<canvas style="z-index:4;" class="pieces" id="hold-piece"></canvas>
+	<div style="z-index:3;" class="text" id="score-board-text">Score</div>
+	<div style="z-index:3;" class="pieces" id="score-board">
+		<p id="score">0</p>
+		<p id="flavor-text">to level up</p>
+	</div>
+	<div id="background-game-div"></div>
+	<div style="z-index:5;" id="popup-background"></div>
+	<canvas id="main-menu-canvas"></canvas>
+	<div id="main-menu-background"></div>
+	<div id="main-menu-fade-div"></div>
+	<div class="popup-window" style="z-index:6;" id="main-menu">
+		<h2>Four Squares</h2>
+		<p><button  id="play-button" class="button" onclick="FourSquares.startGame();">Play</button></p>
+		<!--<p><button class="button" onclick="Windows.displayScreen('controls');">Controls</button></p>-->
+	</div>
+	<div class="popup-window" style="z-index:6;" id="death-window">
+		<h2>You Reached Level <span class="level-reached">0</span>!</h2>
+		<div class="stats-div">
+			<table>
+				<tr>
+					<td>Total lines cleared:</td>
+					<td class="right-text"><span class="total-lines-cleared">0</span></td>
+				</tr>
+				<tr>
+					<td>Singles:</td>
+					<td class="right-text"><span class="singles-cleared">0</span></td>
+				</tr>
+				<tr>
+					<td>Doubles:</td>
+					<td class="right-text"><span class="doubles-cleared">0</span></td>
+				</tr>
+				<tr>
+					<td>Triples:</td>
+					<td class="right-text"><span class="triples-cleared">0</span></td>
+				</tr>
+				<tr>
+					<td>Four Squares:</td>
+					<td class="right-text"><span class="four-squares-cleared">0</span></td>
+				</tr>
+			</table>
+		</div>
+		<p><button class="button" id="replay-button" onclick="FourSquares.startGame();">Play again</button></p>
+		<p><button class="button" id="return-button" onclick="FourSquares.mainMenu();">Main menu</button></p>
+	</div>
+	<div class="popup-window" style="z-index:6;" id="win-window">
+		<h2>You Won!</h2>
+		<div class="stats-div">
+			<table>
+				<tr>
+					<td>Total lines cleared:</td>
+					<td class="right-text"><span class="total-lines-cleared">0</span></td>
+				</tr>
+				<tr>
+					<td>Singles:</td>
+					<td class="right-text"><span class="singles-cleared">0</span></td>
+				</tr>
+				<tr>
+					<td>Doubles:</td>
+					<td class="right-text"><span class="doubles-cleared">0</span></td>
+				</tr>
+				<tr>
+					<td>Triples:</td>
+					<td class="right-text"><span class="triples-cleared">0</span></td>
+				</tr>
+				<tr>
+					<td>Four Squares:</td>
+					<td class="right-text"><span class="four-squares-cleared">0</span></td>
+				</tr>
+			</table>
+		</div>
+		<p><button class="button" id="continue-button" onclick="FourSquares.resumeGame();">Continue</button></p>
+	</div>
+	<div class="popup-window" style="z-index:6;" id="pause-window">
+		<h2>Paused</h2>
+		<p><button class="button" id="resume-button" onclick="FourSquares.resumeGame();">Resume</button></p>
+		<p><button class="button" id="sensitivity-button" onclick="FourSquares.sensitivityWindow();">Adjust Sensitivity</button></p>
+		<p><button class="button" id="restart-button-2" onclick="FourSquares.startGame();">Restart</button></p>
+		<p><button class="button" id="return-button-2" onclick="FourSquares.mainMenu();">Main menu</button></p>
+	</div>
+	<div class="popup-window" style="z-index:6;" id="sensitivity-window">
+		<h2>Sensitivity</h2>
+		<h3>Horizontal Sensitivity</h3>
+		<p>
+			<button class="button" id="horiz-minus" onclick="FourSquares.decreaseHorizontal();">-</button>
+			<input type="text" class="num-display" id="horiz-display" readonly="readonly"></input>
+			<button class="button" id="horiz-plus" onclick="FourSquares.increaseHorizontal();">+</button>
+		</p>
+		<h3>Vertical Sensitivity</h3>
+		<p>
+			<button class="button" id="vert-minus" onclick="FourSquares.decreaseVertical();">-</button>
+			<input type="text" class="num-display" id="vert-display" readonly="readonly"></input>
+			<button class="button" id="vert-plus" onclick="FourSquares.increaseVertical();">+</button>
+		</p>
+		<p><button id="sensitivity-apply" class="button" onclick="FourSquares.applySensitivities();">Apply</button></p>
+		<p><button id="sensitivity-cancel" class="button" onclick="Windows.displayScreen('pause');">Cancel</button></p>
+	</div>
+	<div class="popup-window" style="z-index:6;" id="controls">
+		<h2>Controls</h2>
+		<p><button class="button" onclick="FourSquares.mainMenu();">Main menu</button></p>
+	</div>
+</body>
+{% load static %}
+<script src="{% static 'foursquares/js/FourSquares.js' %}"></script>
+<script>
+	document.addEventListener('touchstart', Controls.emptyTouchStart, {passive: false});
+	document.addEventListener('touchend', Controls.emptyTouchEnd, {passive: false});
+	FourSquares.mainMenu();
+	Graphics.onResize();
+	window.addEventListener('resize', Graphics.onResize);
+	window.addEventListener('orientationchange', function () { for (let i = 0; i < 100; i += 10) { setTimeout(Graphics.onResize, i); } });
+</script>
+
+</html>

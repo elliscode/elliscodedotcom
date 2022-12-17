@@ -1,0 +1,70 @@
+body {
+  background-color:#555;
+}
+
+h1, h2, h3 {
+  color:#fff;
+}
+
+p {
+  color:#ddd;
+}
+
+img {
+  width:100%;
+  max-width:400px;
+}
+
+.hero {
+  margin-bottom: 5rem;
+  background-color:#333;
+  height:12.5rem;
+  z-index:4;
+  box-shadow: 0px 0px 10px #222;
+}
+
+.hero h2 {
+	 font-size:2rem;
+}
+
+/* Bigger than 0 */
+@media (min-width: 0px) {
+  .section {
+    padding: 0 0 11rem;
+  }
+  .hero {
+    padding: 1.5rem 0;
+    text-align: left;
+  }
+}
+
+/* Bigger than 550 */
+@media (min-width: 550px) {
+  .section {
+    padding: 0 0 11rem;
+  }
+  .hero {
+    padding: 2.5rem 0;
+    text-align: left;
+  }
+}
+
+/* Bigger than 750 */
+@media (min-width: 750px) {
+  .section {
+    padding: 0 0 15rem;
+  }
+  .hero {
+    padding: 5rem 0;
+  }
+}
+
+/* Bigger than 1000 */
+@media (min-width: 1000px) {
+  .section {
+    padding: 0 0 19rem;
+  }
+  .hero {
+    padding: 10rem 0;
+  }
+}

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>elliscode</title>
+	<meta name="description" content="Working examples of code written by ellis" />
+	<meta name="author" content="ellis" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+    {% load static %}
+	<link href="{% static 'home/css/Raleway.css' %}" rel="stylesheet" type="text/css" />
+    {% load static %}
+	<link href="{% static 'home/css/normalize.css' %}" rel="stylesheet" type="text/css" />
+    {% load static %}
+	<link href="{% static 'home/css/skeleton.css' %}" rel="stylesheet" type="text/css" />
+    {% load static %}
+	<link href="{% static 'home/css/stylesheet.css' %}" rel="stylesheet" type="text/css" />
+    {% load static %}
+    <link rel="icon" type="image/png" href="{% static 'home/images/favicon.png' %}" />
+</head>
+<body>
+  <div class="section hero">
+    <div class="container">
+      <div class="row">
+        <div class="twelve columns">
+          <h1>elliscode</h1>
+		  <h2>Live examples of my GitHub projects</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="container">
+      <div class="row">
+        <div class="one-third column value">
+          <h3>Dumbphone Apps</h3>
+          {% load static %}
+          <a href="https://dumbphoneapps.com"><img src="{% static 'home/images/dumbphoneapps.png' %}" /></a>
+          <p>Dumbphone applications that I use on my AT&amp;T Smartflip phone running KaiOS </p>
+        </div>
+        <div class="one-third column value">
+          <h3>Ellis Recipes</h3>
+          {% load static %}
+          <a href="https://ellisrecipes.com"><img src="{% static 'home/images/recipes.png' %}" /></a>
+          <p>Mobile-friendly recipe website with built-in search, serving modifications, NoSleep.js integration, and print-friendly CSS</p>
+        </div>
+        <div class="one-third column value">
+          <h3>Four Squares</h3>
+          {% load static %}
+          <a href="foursquares"><img src="{% static 'home/images/four-squares.png' %}" /></a>
+          <p>If you love Tetris&reg; & &copy;, you'll love this game!</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="one-third column value">
+          <h3>Turtle Time</h3>
+          {% load static %}
+          <a href="turtle-time/index.html"><img src="{% static 'home/images/turtle.png' %}" /></a>
+          <p>Tap to play game that relies on timing to avoid eating bad food</p>
+        </div>
+        <div class="one-third column value">
+          <h3>Snake</h3>
+          {% load static %}
+          <a href="snake/index.html"><img src="{% static 'home/images/snake.png' %}" /></a>
+          <p>Snake game that adds inputs to a queue</p>
+        </div>
+        <div class="one-third column value">
+          <h3>Steven States</h3>
+          {% load static %}
+          <a href="steven-states/index.html"><img src="{% static 'home/images/steven-states.png' %}" /></a>
+          <p>Steven is stating what buttons he wants you to press. Copy him to play!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
