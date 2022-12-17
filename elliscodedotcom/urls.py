@@ -20,4 +20,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('home.urls')),
     path('foursquares', include('foursquares.urls')),
+    path('turtletime', include('turtletime.urls')),
 ]

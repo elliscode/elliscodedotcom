@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>&#x1f422; Turtle Time &#x1f422;</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'turtletime/css/turtleTime.css' %}">
+</head>
+
+<body id="body">
+	<div id="level-info">
+		<div id="progress-container">
+			<div id="food-progress" value="70">
+				<p><strong>Year <span id="level-number">0</span>:</strong> <span id="amount-eaten">0</span> / <span
+						id="total-needed">0</span></p>
+				</p>
+			</div>
+			</p>
+		</div>
+	</div>
+	<div id="win-window">
+		<h2>You reached adulthood!</h2>
+		<p><button class="button" onclick="Game.resumeGame();">Continue</button></p>
+	</div>
+	<div id="death-div">
+		<h2>You Died...</h2>
+		<p><button class="button" onclick="Game.startGame();">Play again</button></p>
+		<p><button class="button" onclick="Game.startMenu();">Main Menu</button></p>
+	</div>
+	<div id="pause-window">
+		<h2>Paused</h2>
+	</div>
+	<div id="window-background-div">
+
+	</div>
+	<div id="pause-div">
+		<button id="pause-button" class="button" onclick="Game.pauseGame();">&#10074;&#10074;</button>
+	</div>
+	<div id="menu-div">
+		<h1>Turtle Time</h1>
+		<p><button id="pause-button" class="button" onclick="Game.startGame();">Play</button></p>
+		<p><button id="pause-button" class="button" onclick="Game.displayHelpScreen();">How to Play</button></p>
+	</div>
+	<div id="help-screen-div">
+		<p>Tap and hold to eat</p>
+		<p>Release to stop eating</p>
+		<p>Red blocks are good</p>
+		<p>Grey blocks are bad</p>
+		<p><button class="button" onclick="Game.displayMenuScreen();">Main Menu</button></p>
+	</div>
+	<canvas id="game-canvas"></canvas>
+</body>
+{% load static %}
+<script src="{% static 'turtletime/js/Turtle.js' %}"></script>
+{% load static %}
+<script src="{% static 'turtletime/js/Food.js' %}"></script>
+{% load static %}
+<script src="{% static 'turtletime/js/Levels.js' %}"></script>
+{% load static %}
+<script src="{% static 'turtletime/js/Game.js' %}"></script>
+{% load static %}
+<script src="{% static 'turtletime/js/ArrayUtilities.js' %}"></script>
+{% load static %}
+<script src="{% static 'turtletime/js/AutoPlay.js' %}"></script>
+<script>
+	var frameTime = new Date();
+	Turtle.blinkLoop();
+	Game.onResize(true);
+	document.onresize = Game.onResize;
+	setInterval(Game.onResize, 100);
+	setInterval(function () { Game.onResize(true) }, 10000);
+	// ensure that everythig that prints out is 30 seconds 
+	// long and has a time array larger than the amount good
+	for (let i = 0; i < Levels.array.length; i++) {
+		console.log('Level ' + (i + 1) + ': ' + ArrayUtilities.sum(Levels.array[i].finishTimes) + ' // ' + Levels.array[i].amountGood + ' of ' + Levels.array[i].finishTimes.length);
+	}
+	Game.startMenu();
+</script>
+
+</html>
