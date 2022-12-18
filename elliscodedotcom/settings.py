@@ -54,7 +54,6 @@ CSRF_TRUSTED_ORIGINS = ['https://*.elliscode.com']
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
