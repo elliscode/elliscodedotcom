@@ -47,7 +47,7 @@ SECRET_KEY = secret_file.readline()
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['localhost', 'elliscode.com']
+ALLOWED_HOSTS = ['localhost', 'elliscode.com', 'www.elliscode.com']
 
 CSRF_TRUSTED_ORIGINS = ['https://*.elliscode.com']
 
@@ -97,18 +97,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'elliscodedotcom.wsgi.application'
-
-
-# Database
-# https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators

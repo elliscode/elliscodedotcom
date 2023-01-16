@@ -1,36 +1,28 @@
 # Setup
 
-Create virtual environment:
-
 ```
-python -m venv env
+~/Python311/Scripts/pipenv lock
 ```
 
-Activate virtual environment:
-
 ```
-cd env/Scripts/ && . activate && cd ../../
+~/Python311/Scripts/pipenv sync
 ```
 
-Install requirements:
-
 ```
-pip install -r requirements.txt
+~/Python311/Scripts/pipenv run manage.py collectstatic
 ```
 
-Collect static files:
-
 ```
-python manage.py collectstatic
+~/Python311/Scripts/pipenv run manage.py migrate
 ```
 
-Run WSGI server:
+# Run
 
 ```
-python server.py
+~/Python311/Scripts/pipenv run server.py
 ```
 
 # Cache and secrets folder layout
 
-- `$HOME/elliscode`
+- `$HOME/elliscodedotcom`
     - `secret-key.txt` &mdash; automatically generated on the startup of the server, see `/elliscodedotcom/settings.py`
