@@ -12,10 +12,6 @@
 ~/Python311/Scripts/pipenv run manage.py collectstatic
 ```
 
-```
-~/Python311/Scripts/pipenv run manage.py migrate
-```
-
 # Run
 
 ```
