@@ -4,8 +4,8 @@
 <head>
 	<title>Snake Game</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-	{% load static %}
-	<link rel="stylesheet" type="text/css" href="{% static 'snake/css/stylesheet.css' %}" />
+	
+	<link rel="stylesheet" type="text/css" href="css/stylesheet.css" />
 </head>
 
 <body>
@@ -44,11 +44,11 @@
 		<p><button id="hard" class="button" onclick="Snake.setPeriod(80);Interface.displayPopup('menu');">Hard</button></p>
 	</div>
 </body>
-<script src="{% static 'snake/js/Direction.js' %}"></script>
-<script src="{% static 'snake/js/QueuedInput.js' %}"></script>
-<script src="{% static 'snake/js/Snake.js' %}"></script>
-<script src="{% static 'snake/js/GameBoard.js' %}"></script>
-<script src="{% static 'snake/js/Interface.js' %}"></script>
+<script src="js/Direction.js"></script>
+<script src="js/QueuedInput.js"></script>
+<script src="js/Snake.js"></script>
+<script src="js/GameBoard.js"></script>
+<script src="js/Interface.js"></script>
 <script>
 	Snake.createSnake();
 	Interface.onResize();

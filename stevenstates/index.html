@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Steven States</title>
+	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, initial-scale=1.0" />
+	
+	<link rel="stylesheet" type="text/css" href="css/stylesheet.css">
+</head>
+
+<body id="body">
+	<canvas id="steven-states"></canvas>
+	<p class="center-text" id="steven-text">STEVEN</p>
+	<p class="center-text" id="start-button">START</p>
+	<div id="score"><p>Score: <span id="score-text">0</span></p></div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/SoundJS/1.0.2/soundjs.js"></script>
+<script src="js/Graphics.js"></script>
+<script src="js/StevenStates.js"></script>
+<script src="js/Controls.js"></script>
+<script src="js/Audio.js"></script>
+<script>
+	createjs.Sound.registerSound("audio/red.wav", "red");
+	createjs.Sound.registerSound("audio/green.wav", "green");
+	createjs.Sound.registerSound("audio/blue.wav", "blue");
+	createjs.Sound.registerSound("audio/yellow.wav", "yellow");
+	createjs.Sound.registerSound("audio/lose.wav", "lose");
+	window.addEventListener('resize', Graphics.onResize);
+	window.addEventListener('orientationchange', function () { for (let i = 0; i < 1000; i += 10) { setTimeout(Graphics.onResize, i); window.scrollTo(0,0); } });
+	Graphics.onResize();
+	Graphics.draw();
+	StevenStates.mainMenu();
+</script>
+
+</html>

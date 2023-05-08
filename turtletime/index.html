@@ -2,10 +2,9 @@
 <html>
 
 <head>
-	<title>&#x1f422; Turtle Time &#x1f422;</title>
+	<title>Turtle Time</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    {% load static %}
-	<link rel="stylesheet" type="text/css" href="{% static 'turtletime/css/turtleTime.css' %}">
+	<link rel="stylesheet" type="text/css" href="css/turtleTime.css">
 </head>
 
 <body id="body">
@@ -51,18 +50,12 @@
 	</div>
 	<canvas id="game-canvas"></canvas>
 </body>
-{% load static %}
-<script src="{% static 'turtletime/js/Turtle.js' %}"></script>
-{% load static %}
-<script src="{% static 'turtletime/js/Food.js' %}"></script>
-{% load static %}
-<script src="{% static 'turtletime/js/Levels.js' %}"></script>
-{% load static %}
-<script src="{% static 'turtletime/js/Game.js' %}"></script>
-{% load static %}
-<script src="{% static 'turtletime/js/ArrayUtilities.js' %}"></script>
-{% load static %}
-<script src="{% static 'turtletime/js/AutoPlay.js' %}"></script>
+<script src="js/Turtle.js"></script>
+<script src="js/Food.js"></script>
+<script src="js/Levels.js"></script>
+<script src="js/Game.js"></script>
+<script src="js/ArrayUtilities.js"></script>
+<script src="js/AutoPlay.js"></script>
 <script>
 	var frameTime = new Date();
 	Turtle.blinkLoop();

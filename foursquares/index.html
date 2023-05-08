@@ -4,8 +4,8 @@
 <head>
 	<title>Four Squares</title>
 	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, initial-scale=1.0" />
-    {% load static %}
-	<link rel="stylesheet" type="text/css" href="{% static 'foursquares/css/stylesheet.css' %}">
+    
+	<link rel="stylesheet" type="text/css" href="css/stylesheet.css">
 </head>
 
 <body id="body">
@@ -116,8 +116,8 @@
 		<p><button class="button" onclick="FourSquares.mainMenu();">Main menu</button></p>
 	</div>
 </body>
-{% load static %}
-<script src="{% static 'foursquares/js/FourSquares.js' %}"></script>
+
+<script src="js/FourSquares.js"></script>
 <script>
 	document.addEventListener('touchstart', Controls.emptyTouchStart, {passive: false});
 	document.addEventListener('touchend', Controls.emptyTouchEnd, {passive: false});
