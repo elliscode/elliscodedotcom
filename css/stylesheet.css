@@ -6,6 +6,10 @@ h1, h2, h3 {
   color:#fff;
 }
 
+h3 {
+  font-size:2em;
+}
+
 p {
   color:#ddd;
 }
