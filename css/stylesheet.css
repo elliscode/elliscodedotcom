@@ -10,25 +10,55 @@ h3 {
   font-size:2em;
 }
 
-p {
+p, ul, ol, li {
   color:#ddd;
 }
 
 img {
   width:100%;
+}
+
+a img {
+  width:100%;
   max-width:400px;
 }
 
 .hero {
-  margin-bottom: 5rem;
+  position:relative;
+  margin-bottom: 0rem;
+  padding-bottom: 0em!important;
   background-color:#333;
-  height:12.5rem;
+  height:auto!important;
+  box-sizing: border-box;
   z-index:4;
-  box-shadow: 0px 0px 10px #222;
+  /* box-shadow: 0px 0px 10px #222; */
 }
 
 .hero h2 {
 	 font-size:2rem;
+}
+
+.nav {
+  position:sticky;
+  top:0px;
+  margin-bottom: 5rem;
+  padding-bottom: 0em!important;
+  background-color:#333;
+  height:auto!important;
+  box-sizing: border-box;
+  z-index:4;
+  box-shadow: 0px 0px 10px #222;
+}
+
+.nav a {
+  position:relative;
+  font-size:1.5em;
+  /* margin-right:2em; */
+  text-decoration: none;
+  /* border:3px black solid; */
+  padding:0.5em 2em 0.5em 0em;
+  box-sizing:border-box;
+  display:inline-block;
 }
 
 /* Bigger than 0 */
