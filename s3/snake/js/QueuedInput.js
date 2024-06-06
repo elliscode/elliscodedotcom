@@ -21,13 +21,13 @@ QueuedInput.removeListeners = function () {
 }
 
 QueuedInput.resumeHandler = function (keyboardEvent) {
-	if (keyboardEvent.code === 'Space') {
+	if (keyboardEvent.code === 'Space' || keyboardEvent.key === '*') {
 		Snake.resumeGame();
 	}
 }
 
 QueuedInput.restartHandler = function (keyboardEvent) {
-	if (keyboardEvent.code === 'Space') {
+	if (keyboardEvent.code === 'Space' || keyboardEvent.key === '*') {
 		Snake.startGame();
 	}
 }
@@ -40,16 +40,21 @@ QueuedInput.keyboardHandler = function (keyboardEvent) {
 	if(undefined === oldDirection) {
 		oldDirection = Snake.currentDirection;
 	}
+	if (['2','4','6','8','*'].includes(keyboardEvent.key)) {
+		Interface.footerTypeNumberPad = true;
+	} else if (['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Space'].includes(keyboardEvent.code)) {
+		Interface.footerTypeNumberPad = false;
+	}
 	let newDirection = undefined;
-	if (keyboardEvent.code === 'ArrowUp') {
+	if (keyboardEvent.code === 'ArrowUp' || keyboardEvent.key === '2') {
 		newDirection = Direction.UP;
-	} else if (keyboardEvent.code === 'ArrowDown') {
+	} else if (keyboardEvent.code === 'ArrowDown' || keyboardEvent.key === '8') {
 		newDirection = Direction.DOWN;
-	} else if (keyboardEvent.code === 'ArrowLeft') {
+	} else if (keyboardEvent.code === 'ArrowLeft' || keyboardEvent.key === '4') {
 		newDirection = Direction.LEFT;
-	} else if (keyboardEvent.code === 'ArrowRight') {
+	} else if (keyboardEvent.code === 'ArrowRight' || keyboardEvent.key === '6') {
 		newDirection = Direction.RIGHT;
-	} else if (keyboardEvent.code === 'Space') {
+	} else if (keyboardEvent.code === 'Space' || keyboardEvent.key === '*') {
 		Snake.pauseGame();
 	}
 	let definedResult = undefined != newDirection;
@@ -64,7 +69,11 @@ QueuedInput.keyboardHandler = function (keyboardEvent) {
 		QueuedInput.list.push(newDirection);
 	}
 	if(!Interface.footerTypeKeyboard) {
-		Interface.footerText.innerText = "Press Space to Pause";
+		if (Interface.footerTypeNumberPad) {
+			Interface.footerText.innerText = "Press * to Pause";
+		} else {
+			Interface.footerText.innerText = "Press Space to Pause";
+		}
 		Interface.footerTypeKeyboard = true;
 		Interface.footerTypeTouch = false;
 	}

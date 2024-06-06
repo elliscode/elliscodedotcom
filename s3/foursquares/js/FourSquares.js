@@ -762,21 +762,21 @@ Controls.moveHorizontal = function (direction) {
     }
 }
 Controls.keyboardHandler = function (keyboardEvent) {
-    if (keyboardEvent.code === 'ArrowUp') {
+    if (keyboardEvent.code === 'ArrowUp' || keyboardEvent.key === '9' || keyboardEvent.key === '2') {
         Controls.rotatePiece('clockwise');
-    } else if (keyboardEvent.code === 'KeyX' || keyboardEvent.code === 'KeyW' || keyboardEvent.code === 'KeyZ' || keyboardEvent.code === 'KeyX' || keyboardEvent.code === 'KeyA') {
+    } else if (keyboardEvent.code === 'KeyX' || keyboardEvent.code === 'KeyW' || keyboardEvent.code === 'KeyZ' || keyboardEvent.code === 'KeyX' || keyboardEvent.code === 'KeyA' || keyboardEvent.key === '7') {
         Controls.rotatePiece('counterClockwise');
-    } else if (keyboardEvent.code === 'ArrowDown') {
+    } else if (keyboardEvent.code === 'ArrowDown' || keyboardEvent.key === '8') {
         Controls.moveDownUntilYouCant();
-    } else if (keyboardEvent.code === 'ArrowLeft') {
+    } else if (keyboardEvent.code === 'ArrowLeft' || keyboardEvent.key === '4') {
         Controls.moveHorizontal('left');
-    } else if (keyboardEvent.code === 'ArrowRight') {
+    } else if (keyboardEvent.code === 'ArrowRight' || keyboardEvent.key === '6') {
         Controls.moveHorizontal('right');
-    } else if (keyboardEvent.code === 'Space') {
+    } else if (keyboardEvent.code === 'Space' || keyboardEvent.key === '0') {
         Controls.snapDown();
-    } else if (keyboardEvent.code === 'ControlLeft' || keyboardEvent.code === 'ShiftLeft') {
+    } else if (keyboardEvent.code === 'ControlLeft' || keyboardEvent.code === 'ShiftLeft' || keyboardEvent.key === 'Call') {
         HoldPiece.swapHoldPiece();
-    } else if (keyboardEvent.code === 'Escape') {
+    } else if (keyboardEvent.code === 'Escape' || keyboardEvent.key === '*') {
         FourSquares.pauseGame();
         Windows.displayScreen('pause');
     }

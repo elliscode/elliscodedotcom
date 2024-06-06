@@ -64,7 +64,7 @@ a img {
 /* Bigger than 0 */
 @media (min-width: 0px) {
   .section {
-    padding: 0 0 11rem;
+    padding: 0px;
   }
   .hero {
     padding: 1.5rem 0;
@@ -76,7 +76,7 @@ a img {
 /* Bigger than 550 */
 @media (min-width: 550px) {
   .section {
-    padding: 0 0 11rem;
+    padding: 0px;
   }
   .hero {
     padding: 2.5rem 0;
@@ -87,7 +87,7 @@ a img {
 /* Bigger than 750 */
 @media (min-width: 750px) {
   .section {
-    padding: 0 0 15rem;
+    padding: 0px;
   }
   .hero {
     padding: 5rem 0;

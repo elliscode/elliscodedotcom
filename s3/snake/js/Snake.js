@@ -5,7 +5,7 @@ Snake.dead = false;
 Snake.won = false;
 Snake.killAnimationFrame = false;
 Snake.framePeriod = 200; // ms
-Snake.startGame = function () {
+Snake.startGame = function (event) {
 	Snake.pause = false;
 	Snake.dead = false;
 	Snake.won = false;
@@ -24,6 +24,7 @@ Snake.startGame = function () {
 		QueuedInput.createListeners();
 	}, 200);
 	Interface.headerDiv.style.display = 'block';
+	document.activeElement.blur();
 }
 
 Snake.mainMenu = function () {

@@ -7,6 +7,7 @@ Interface.difficulty = document.getElementById('difficulty-div');
 Interface.headerDiv = document.getElementById('header');
 Interface.footerText = document.getElementById('footer-span');
 Interface.footerTypeKeyboard = false;
+Interface.footerTypeNumberPad = false;
 Interface.footerTypeTouch = false;
 Interface.startGameButton = document.getElementById("start-game-button");
 Interface.difficultyButton = document.getElementById("difficulty-button");
@@ -73,6 +74,11 @@ Interface.displayPopup = function (value) {
         setTimeout(function () { Interface.restartStartGameButton.addEventListener('touchstart', Snake.startGame, {passive: false}); }, 200);
         setTimeout(function () { Interface.restartMainMenuButton.addEventListener('touchstart', Snake.mainMenu, {passive: false}); }, 200);
     } else if ('pause' === value) {
+        if (Interface.footerTypeNumberPad) {
+            Interface.pauseResumeButton.innerText = "Resume (*)";
+        } else {
+            Interface.pauseResumeButton.innerText = "Resume";
+        }
         Interface.pause.style.zIndex = 11;
         for(let button of Interface.pause.getElementsByTagName('button')) {
             button.disabled = false;

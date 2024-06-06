@@ -14,6 +14,21 @@ Controls.onTouchStart = function (e) {
     }
     e.preventDefault();
 }
+Controls.keyboardControls = function (e) {
+    let color = undefined;
+    if (e.key === '4') {
+        color = Graphics.colors.green;
+    } else if (e.key === '6') {
+        color = Graphics.colors.red;
+    } else if (e.key === '7') {
+        color = Graphics.colors.yellow;
+    } else if (e.key === '9') {
+        color = Graphics.colors.blue;
+    }
+    if(color != undefined) {
+        StevenStates.setColor(color);
+    }
+}
 Controls.onClickStartGameMenu = function (e) {
     Controls.startGameMenuCallback(e.clientX, e.clientY);
 }
@@ -41,6 +56,7 @@ Controls.addMenuListeners = function () {
 Controls.addListeners = function () {
     Controls.removeListeners();
     document.addEventListener('click', Controls.onClickStart);
+    document.addEventListener('keydown', Controls.keyboardControls);
     document.addEventListener('touchstart', Controls.onTouchStart, { passive: false });
     document.addEventListener('touchmove', Controls.deadTouchCallback, { passive: false });
     document.addEventListener('touchend', Controls.deadTouchCallback, { passive: false });
@@ -48,6 +64,7 @@ Controls.addListeners = function () {
 Controls.removeListeners = function () {
     document.removeEventListener('click', Controls.onClickStartGameMenu);
     document.removeEventListener('click', Controls.onClickStart);
+    document.removeEventListener('keydown', Controls.keyboardControls);
     document.removeEventListener('touchstart', Controls.onTouchStart, { passive: false });
     document.removeEventListener('touchstart', Controls.onTouchStartGameMenu, { passive: false });
     document.removeEventListener('touchstart', Controls.deadTouchCallback, { passive: false });
