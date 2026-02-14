@@ -165,6 +165,9 @@ Windows.displayScreen = function (windowType) {
     }
     Stats.setSpans();
     Controls.removeListeners();
+    if (windowType == 'pause') {
+        Controls.addPauseListeners();
+    }
     Windows.background.style.display = 'block';
     Windows.background.style.zIndex = '6';
     Graphics.onResize();
@@ -769,6 +772,18 @@ Controls.moveHorizontal = function (direction) {
         FourSquares.timeStamp = new Date();
     }
 }
+
+Controls.pauseHandler = function (keyboardEvent) {
+    if (keyboardEvent.code === 'Escape' || keyboardEvent.key === '*') {
+        if (GameBoard.paused) {
+            FourSquares.resumeGame();
+        } else {
+            FourSquares.pauseGame();
+            Windows.displayScreen('pause');
+        }
+    }
+}
+
 Controls.keyboardHandler = function (keyboardEvent) {
     if (keyboardEvent.code === 'ArrowUp' || keyboardEvent.key === '9' || keyboardEvent.key === '2') {
         Controls.rotatePiece('clockwise');
@@ -784,9 +799,8 @@ Controls.keyboardHandler = function (keyboardEvent) {
         Controls.snapDown();
     } else if (keyboardEvent.code === 'ControlLeft' || keyboardEvent.code === 'ShiftLeft' || keyboardEvent.key === 'Call') {
         HoldPiece.swapHoldPiece();
-    } else if (keyboardEvent.code === 'Escape' || keyboardEvent.key === '*') {
-        FourSquares.pauseGame();
-        Windows.displayScreen('pause');
+    } else {
+        Controls.pauseHandler(keyboardEvent);
     }
 }
 
@@ -905,11 +919,18 @@ Controls.addListeners = function () {
     setTimeout(function() { document.addEventListener('touchend', Controls.handleTouchEnd, { passive: false }); }, 100);
 }
 
+Controls.addPauseListeners = function () {
+    Controls.removeListeners();
+    document.addEventListener('keydown', Controls.pauseHandler);
+}
+
+
 Controls.removeListeners = function () {
     document.removeEventListener('keydown', Controls.keyboardHandler);
     document.removeEventListener('touchstart', Controls.handleTouchStart, { passive: false });
     document.removeEventListener('touchmove', Controls.handleTouchMove, { passive: false });
     document.removeEventListener('touchend', Controls.handleTouchEnd, { passive: false });
+    document.removeEventListener('keydown', Controls.pauseHandler);
 }
 Controls.moveDown = function () {
     if (GameBoard.areYouDead || GameBoard.paused) {

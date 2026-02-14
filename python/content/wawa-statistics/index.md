@@ -113,3 +113,5 @@ while len(coords) > 0:
 ```
 
 i wait 45 seconds to avoid being throttled
+
+![The image test](003-s3-service.png)
