@@ -215,8 +215,16 @@ NextThree.canvas.width = 120;
 NextThree.canvas.height = 360;
 NextThree.pieces = [];
 NextThree.context = NextThree.canvas.getContext('2d');
+NextThree.bag = [];
+NextThree.add = function () {
+    if (NextThree.bag.length == 0) {
+        NextThree.bag.push(...Pieces.array);
+    }
+    let piece = NextThree.bag.splice(Math.floor(Math.random() * NextThree.bag.length), 1)
+    NextThree.pieces.push(piece[0]);
+}
 NextThree.popAndAdd = function () {
-    NextThree.pieces.push(Pieces.array[Math.floor(Math.random() * Pieces.array.length)]);
+    NextThree.add();
     return NextThree.pieces.shift();
 }
 
@@ -525,7 +533,7 @@ FourSquares.startGame = function (e) {
     GameBoard.mainMenu = false;
     NextThree.pieces = [];
     for (let i = 0; i < 5; i++) {
-        NextThree.pieces.push(Pieces.array[Math.floor(Math.random() * Pieces.array.length)]);
+        NextThree.add();
     }
     GameBoard.areYouDead = false;
     GameBoard.paused = false;
