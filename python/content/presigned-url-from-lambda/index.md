@@ -1,4 +1,4 @@
-# Generating a presigned URL from a Lambda function
+## Generating a presigned URL from a Lambda function
 
 In this tutorial, we will go over the exact steps needed in order to generate a presigned url form a lambda function. 
 
@@ -6,11 +6,11 @@ When you create a presigned URL, the presigned URL belongs to the session that c
 
 To avoid this issue, we will create an IAM user with very limited permissions, and have our lambda assume the identity of this IAM user in order to allow our presigned URL to work as expected.
 
-## Step 1: Create a file in a private S3 bucket
+### Step 1: Create a file in a private S3 bucket
 
 I will assume you already have created a private S3 bucket, with all public access disabled. If you have not, expand the following section for instructions.
 
-> ### Creating a private S3 bucket
+> #### Creating a private S3 bucket
 > 
 > First, navigate to the S3 service by searching for "S3" in the search bar
 > 
@@ -52,7 +52,7 @@ Click on the "Object URL" hyperlink and ensure the page that shows up displays a
 
 This is expected, as our bucket is set to "Block all public access". However, we will be able to access this object in this private bucket by generating a presigned URL. Next, we will create the IAM user which will be generating the presigned URL.
 
-## Step 2: Create an IAM user and add permissions
+### Step 2: Create an IAM user and add permissions
 
 Navigate to the IAM service by searching for "IAM" in the search bar
 
@@ -86,5 +86,5 @@ Once returned to the IAM user page, expand the newly created inline policy and e
 
 ![A screenshot of the resulting policy JSON](../../../s3/blog/presigned-url-from-lambda/008-resulting-policy.png)
 
-## Step 3: Create an access key for your new IAM user
+### Step 3: Create an access key for your new IAM user
 

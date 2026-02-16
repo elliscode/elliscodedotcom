@@ -1,117 +1,82 @@
-# Wawa statistics
+## How close are the two closest Wawa stores?
 
-What is wawa, where is it located, why is this interesting
+The two closest Wawa locations are 494 meters apart, located at 912-916 Walnut Street and 150 South Independence Mall West in Philadelphia, Pennsylvania.
 
-## Step 1: Get the data
-
-Scrape hero dataset, no thanks...
-https://www.scrapehero.com/store/product/wawa-store-locations-in-the-usa/
-
-## Step 1: Scrape the data yourself
-
-```bash
-curl --request POST \
-  --url https://www.wawa.com/api/bff \
-  --header 'content-type: application/json' \
-  --header 'user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36 Edg/134.0.0.0' \
-  --data '{
-  "query": "query FindNearLocations($latitude: Latitude!, $longitude: Longitude!) {\n  findNearLocations(latitude: $latitude, longitude: $longitude) {\n    results {\n      distance\n      name\n      scheduleType\n      storeOpen\n      storeClose\n      storeNumber\n      isStoreOpen\n      coordinates {\n        latitude\n        longitude\n      }\n      address {\n        address\n        city\n        state\n        zip\n      }\n      amenities {\n        food\n        fuel\n        restrooms\n        diesel\n        ethanolFreeGas\n        open24Hours\n        teslaChargingStation\n        propane\n        chademoChargingStation\n        ccsChargingStation\n      }\n      orderingAvailable\n      isCurbsideDeliveryAvailable\n      fuelTypes {\n        category\n      }\n    }\n  }\n}\n",
-  "variables": {
-    "latitude": 40,
-    "longitude": -75
-  }
-}'
-```
-
-seems like hte only validation that happens is on the user-agent header. if you supply something that isnt a real device, it returns a 403.
-
-It returns the closest 50 wawas for any given latitude or longitude. We dont nee all this info though
-
-```bash
-curl --request POST \
-  --url https://www.wawa.com/api/bff \
-  --header 'content-type: application/json' \
-  --header 'user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36 Edg/134.0.0.0' \
-  --data '{
-  "query": "query FindNearLocations($latitude: Latitude!, $longitude: Longitude!) { findNearLocations(latitude: $latitude, longitude: $longitude) { results { distance name coordinates { latitude longitude } address { address city state zip } } }}",
-  "variables": {
-    "latitude": 40,
-    "longitude": -75
-  }
-}'
-```
-
-Simple python script
-
-seed latitudes and longitueds, in the states I know there are wawas
-
-For each location, i add the new wawas with the furthest distance to my list, one north east, one north west, one south east, and one southwest from the coordinate I supplied.
-
-```python
-import http.client
-import json
-import time
-
-conn = http.client.HTTPSConnection("www.wawa.com")
+Here are the top 10 closest Wawa locations:
+ 
+| Distance (meters) | Store A | Store B | Google Maps Link |
+|-------------------|---------|---------|------------------|
+| 494 | [912-916 walnut st](https://www.wawa.com/locations/0103) | [150 s independence mall w](https://www.wawa.com/locations/8131) | [Directions](https://www.google.com/maps/dir/?api=1&travelmode=walking&origin=39.948289,-75.156638&destination=39.94919977,-75.15096568) |
+| 503 | [525 burmont rd](https://www.wawa.com/locations/0012) | [3800 garrett rd](https://www.wawa.com/locations/0212) | [Directions](https://www.google.com/maps/dir/?api=1&travelmode=walking&origin=39.947078,-75.30158&destination=39.943979,-75.297279) |
+| 522 | [8240 west chester pike](https://www.wawa.com/locations/8070) | [202 s state rd](https://www.wawa.com/locations/0014) | [Directions](https://www.google.com/maps/dir/?api=1&travelmode=walking&origin=39.965574,-75.280898&destination=39.96122,-75.27861) |
+| 522 | [3604 chestnut st](https://www.wawa.com/locations/0055) | [3724-3744 spruce st](https://www.wawa.com/locations/0179) | [Directions](https://www.google.com/maps/dir/?api=1&travelmode=walking&origin=39.954701,-75.1951&destination=39.951065,-75.19898) |
+| 566 | [435 e baltimore ave](https://www.wawa.com/locations/8082) | [100 e baltimore pike](https://www.wawa.com/locations/0100) | [Directions](https://www.google.com/maps/dir/?api=1&travelmode=walking&origin=39.91579,-75.38101&destination=39.916213,-75.387627) |
+| 567 | [3711 w lincoln hwy](https://www.wawa.com/locations/0263) | [600 nova way](https://www.wawa.com/locations/8211) | [Directions](https://www.google.com/maps/dir/?api=1&travelmode=walking&origin=39.984364,-75.93401&destination=39.982267,-75.927941) |
+| 598 | [418 w baltimore pike](https://www.wawa.com/locations/8128) | [5337 baltimore pike](https://www.wawa.com/locations/0293) | [Directions](https://www.google.com/maps/dir/?api=1&travelmode=walking&origin=39.926556,-75.30339&destination=39.925625,-75.310294) |
+| 661 | [1 thomas cir nw](https://www.wawa.com/locations/6007) | [1250 h st nw](https://www.wawa.com/locations/6008) | [Directions](https://www.google.com/maps/dir/?api=1&travelmode=walking&origin=38.90533451,-77.03234581&destination=38.8997896,-77.029591) |
+| 695 | [600 rte 38 e](https://www.wawa.com/locations/8337) | [2801 rte 73 s](https://www.wawa.com/locations/8419) | [Directions](https://www.google.com/maps/dir/?api=1&travelmode=walking&origin=39.94298,-74.96912&destination=39.936746,-74.969634) |
+| 744 | [910 macdade blvd](https://www.wawa.com/locations/8108) | [1550 chester pike](https://www.wawa.com/locations/8007) | [Directions](https://www.google.com/maps/dir/?api=1&travelmode=walking&origin=39.910383,-75.278666&destination=39.904548,-75.28294) |
 
 
-coords = [
-    {"latitude": 33.21292557430234, "longitude": -86.78343388277315}, # Alabama
-    {"latitude": 38.94216542578203, "longitude": -75.47716093772388}, # Delaware
-    {"latitude": 27.92340478259995, "longitude": -81.67186192597387}, # Florida
-    {"latitude": 32.14267180674801, "longitude": -83.20743736228074}, # Georgia
-    {"latitude": 40.53805291022152, "longitude": -86.12503069126379}, # Indiana
-    {"latitude": 37.673295756057385, "longitude": -84.29243899470653}, # Kentucky
-    {"latitude": 39.39028570445561, "longitude": -77.02521636026935}, # Maryland
-    {"latitude": 40.01345482905636, "longitude": -74.56623793409696}, # New Jersey
-    {"latitude": 35.842720560893035, "longitude": -79.67004895457568}, # North Carolina
-    {"latitude": 40.293925454476316, "longitude": -82.52660510684396}, # Ohio
-    {"latitude": 40.88937778409294, "longitude": -77.65365637650396}, # Pennsylvania
-    {"latitude": 37.81515423731911, "longitude": -78.77387447543269}, # Virginia
-    {"latitude": 38.89421944264099, "longitude": -77.04281534600585}, # Washington, D.C.
-    {"latitude": 38.44953805131787, "longitude": -80.95990485444845}, # and West Virginia
-]
-stores = {}
+## What is Wawa?
 
-while len(coords) > 0:
-    coord = coords.pop()
-    try:
-        payload = '{ "query": "query FindNearLocations($latitude: Latitude!, $longitude: Longitude!) { findNearLocations(latitude: $latitude, longitude: $longitude) { results { distance name coordinates { latitude longitude } address { address city state zip } } }}", "variables": { "latitude": ' + str(coord['latitude']) + ', "longitude": ' + str(coord["longitude"]) + ' }}'
+Before we begin, I just want to explain to the uninitiated what exactly Wawa is. 
 
-        headers = {
-            'content-type': "application/json",
-            'user-agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36 Edg/134.0.0.0"
-        }
+Wawa is a 24/7 regional gas station convenience store, which gained massive popularity (at least where I lived) due to being one of the first fast food chains to implement a touch screen ordering system, all the way back in 2002. While Burger King was advertising with the slogan "Have it your way", Wawa was delivering on this very same promise in a revolutionary way.
 
-        conn.request("POST", "/api/bff", payload, headers)
+The quality of the food at Wawa is what I would call objectively "good", but the cuisine offered at Wawa elevates itself to subjectively "amazing" at 3am, when every other store is closed and Wawa is literally the only option.
 
-        res = conn.getresponse()
-        data = res.read()
+## Why do you care?
 
-        result = json.loads(data.decode("utf-8"))
-        storesToCheck = {  }
+You might be thinking, "Okay, but who cares how close they are?", and the answer is probably not very many people. 
 
-        for store in result["data"]["findNearLocations"]["results"]:
-            if stores.get(store["name"]):
-                continue
-            stores[store["name"]] = store
-            eastOrWest = "east" if coord['latitude'] > store['coordinates']['latitude'] else "west"
-            northOrSouth = "north" if coord['longitude'] < store['coordinates']['longitude'] else "south"
-            directionKey = northOrSouth + eastOrWest
-            if directionKey not in storesToCheck or storesToCheck[directionKey]['distance'] < store['distance']:
-                storesToCheck[directionKey] = store
-        for store in storesToCheck.values():
-            coords.append(store['coordinates'])
+The reason *I* care is because the density of Wawa locations has sort of become a running joke where I live. Anecdotally it feels like you can't drive a mile without seeing at least two. On my way to work I pass around ten different Wawa locations. I've even seen neighborhood signs protesting the development of new Wawas.
 
-        print(len(stores))
+Basically, where I live, Wawa is Inevitable.
 
-        with open('stores.json', 'w') as stores_file:
-            json.dump(stores, stores_file, indent=4)
-    except:
-        coords.append(coord)
-    time.sleep(45)
-```
+![Thanos with Wawa superimposed on his head, saying "I am inevitable"](../../../s3/blog/wawa-statistics/000-i-am-inevitable-wawa-meme.jpg)
 
-i wait 45 seconds to avoid being throttled
+## Let's get to work!
 
-![The image test](003-s3-service.png)
+### Step 1: Download the data
+
+When you perform a Google search for "how many wawas are there", you get a top result from a scraping website charging $85 for the dataset. 
+
+Rather than spending any money on answering this silly question, we will simply scrape the data from the Wawa store locator API ourselves.
+
+### Step 1 (really): Scrape the data yourself
+
+When we navigate to the Wawa website, we see that there is a "Find a Wawa Near You" tool. Opening up the dev tools panel, there's a graphql endpoint that returns the 50 closest wawas given a latitude and longitude.
+
+![Screenshot of the Wawa location finder tool](../../../s3/blog/wawa-statistics/001-location-finder-screenshot.png)
+
+I played around with this endpoint in Bruno, and it seems like the only requirement for this endpoint is having a valid `User-Agent` header, nothing else is validated. 
+
+![Screenshot of the Bruno collection I used to test the Wawa location finder GraphQL API](../../../s3/blog/wawa-statistics/002-bruno-screenshot.png)
+
+Once I had this figured out, I added this query to a pyton script, and gave the python script several "seed" data points: one for every state that Wawa is present. I chose the seeds due to some of the clusters where Wawas are located being far enough from one another that a single seed would not suffice.
+
+Every time I get a list of 50 Wawas, I check if each Wawa was already found, and if not, add the furthest new Wawa that is north-west, south-east, south-west, and north-east of my position to the list of seed coordinates. This ensures I branch out as far as I can from each seed coordinate, while not searching any areas that don't have any Wawa locations.
+
+To avoid being throttled, I left a generous 45 second `sleep` in between each call to the location finder endpoint.
+
+This left me with a list of 1,198 Wawa locations. However one of the results returned from this endpoint is invalid, so in reality we are left with a true count of 1,197 Wawa locations. This count is confirmed by the scraping website I found earlier, so I have a somewhat high confidence in its accuracy.
+
+### Step 2: Find how far each Wawa is from all the others
+
+Since I have the latitude and longitude of every Wawa, finding the distances between them is pretty simple using the [Haversine formula](https://en.wikipedia.org/wiki/Haversine_formula). I calculate every distance and store it in a `dict`, then sort the keys of the `dict` by smallest to largest to find the closest Wawa locations.
+
+### Step 3: Questions, answered...?
+
+I was rather disappointed to find that none of the top ten closest Wawa locations that I frequent, as this exercise arose from a suspicion that the Wawa's I go to were some of the closest that exist. 
+
+However if I expand my results out to the top 15, there is one near me that I drive by every week but don't often go into, so that's kind of cool.
+
+### Step 4: Further research needed
+
+Something else caught my attention from reviewing the results above: when I looked at the Google maps directions, it seems the reported latitude and longitudes are not exactly where the Wawa building is, which results in errors on the order of tens of meters. When the results are as close as they are, where first place could be won or lost by measuring a few feet from the official coordinates, 
+
+Until I feel motivated enough to manually determine the entrance coordinates of each Wawa store, we will have to rely on Wawa's self reported, yet inaccurate, data.
+
+Want to run the code yourself? Check it out on GitHub here! 
+

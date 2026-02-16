@@ -26,7 +26,7 @@ stores = {}
 while len(coords) > 0:
     coord = coords.pop()
     try:
-        payload = '{ "query": "query FindNearLocations($latitude: Latitude!, $longitude: Longitude!) { findNearLocations(latitude: $latitude, longitude: $longitude) { results { distance name coordinates { latitude longitude } address { address city state zip } } }}", "variables": { "latitude": ' + str(coord['latitude']) + ', "longitude": ' + str(coord["longitude"]) + ' }}'
+        payload = '{ "query": "query FindNearLocations($latitude: Latitude!, $longitude: Longitude!) { findNearLocations(latitude: $latitude, longitude: $longitude) { results { storeNumber name distance coordinates { latitude longitude } address { address city state zip } } }}", "variables": { "latitude": ' + str(coord['latitude']) + ', "longitude": ' + str(coord["longitude"]) + ' }}'
 
         headers = {
             'content-type': "application/json",
@@ -42,9 +42,9 @@ while len(coords) > 0:
         storesToCheck = {  }
 
         for store in result["data"]["findNearLocations"]["results"]:
-            if stores.get(store["name"]):
+            if stores.get(store["storeNumber"]):
                 continue
-            stores[store["name"]] = store
+            stores[store["storeNumber"]] = store
             eastOrWest = "east" if coord['latitude'] > store['coordinates']['latitude'] else "west"
             northOrSouth = "north" if coord['longitude'] < store['coordinates']['longitude'] else "south"
             directionKey = northOrSouth + eastOrWest

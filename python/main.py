@@ -21,10 +21,13 @@ for folder in CONTENT_DIR.iterdir():
         # Read markdown
         md_text = md_file.read_text()
 
+        # replace those relative paths with something else
+        md_text = md_text.replace(f"../../../s3/blog/{folder.name}/", "")
+
         # Convert to HTML
         html_content = markdown.markdown(
             md_text,
-            extensions=["extra", "codehilite", "toc"]
+            extensions=["extra", "codehilite", "toc", "meta"]
         )
 
         # Render template

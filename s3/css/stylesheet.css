@@ -1,5 +1,5 @@
 body {
-  background-color:#555;
+  background-color:#282828;
 }
 
 h1, h2, h3 {
@@ -61,6 +61,47 @@ a img {
   display:inline-block;
 }
 
+pre, code {
+  background-color: #111;
+}
+
+pre {
+  border: 1px solid #666;
+  padding-top: 30px;
+  border-radius:10px;
+  /* background-image:url('../images/stoplight.svg'); */
+  /* background-repeat:no-repeat; */
+}
+
+code {
+  border: none;
+  border-top: 1px solid #666;
+  border-radius:0;
+  color: #ccc;
+  min-width: max-content;
+}
+
+p:has(> img:first-child) {
+  border: 1px solid #666;
+  padding-top: 30px;
+  border-radius:10px;
+  overflow:hidden;
+}
+
+p > img {
+  border: none;
+  border-top: 1px solid #666;
+  border-radius:0;
+  display:block;
+}
+
+thead {
+  color:white;
+}
+tbody {
+  color:#ddd;
+}
+
 /* Bigger than 0 */
 @media (min-width: 0px) {
   .section {
@@ -70,6 +111,9 @@ a img {
     padding: 1.5rem 0;
     text-align: left;
     height:auto!important;
+  }
+  p {
+    font-size: 14px;
   }
 }
 
@@ -82,6 +126,9 @@ a img {
     padding: 2.5rem 0;
     text-align: left;
   }
+  p {
+    font-size: 17px;
+  }
 }
 
 /* Bigger than 750 */
@@ -91,5 +138,8 @@ a img {
   }
   .hero {
     padding: 5rem 0;
+  }
+  p {
+    font-size: 20px;
   }
 }

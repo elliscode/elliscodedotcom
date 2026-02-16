@@ -27,9 +27,13 @@ with open("stores.json", "r", encoding="utf-8") as f:
 
 keys = list(data.keys())
 
+print(len(keys))
+
 min_dist = math.inf
 store1 = None
 store2 = None
+
+distance_map = {}
 
 for i in range(len(keys)):
     for j in range(i + 1, len(keys)):
@@ -37,10 +41,20 @@ for i in range(len(keys)):
             data[keys[i]]["coordinates"],
             data[keys[j]]["coordinates"],
         )
+        store1 = keys[i]
+        store2 = keys[j]
+        if store1 == '564628' or store2 == '564628':
+            continue
+        if value not in distance_map:
+            distance_map[value] = []
+        distance_map[value].append((store1, store2))
 
-        if value < min_dist:
-            min_dist = value
-            store1 = keys[i]
-            store2 = keys[j]
+distances = list(distance_map.keys())
+distances.sort()
+print(f"| Distance (meters) | Store A | Store B | Google Maps Link |")
+print(f"|-------------------|---------|---------|------------------|")
+for i in range(15):
+    distance = distances[i]
+    for pair in distance_map[distance]:
+        print(f"| {distance:.0f} | [{data[pair[0]]['name']}](https://www.wawa.com/locations/{pair[0]}) | [{data[pair[1]]['name']}](https://www.wawa.com/locations/{pair[1]}) | [Directions](https://www.google.com/maps/dir/?api=1&travelmode=walking&origin={data[pair[0]]['coordinates']['latitude']},{data[pair[0]]['coordinates']['longitude']}&destination={data[pair[1]]['coordinates']['latitude']},{data[pair[1]]['coordinates']['longitude']}) |")
 
-print(store1, store2, min_dist)
