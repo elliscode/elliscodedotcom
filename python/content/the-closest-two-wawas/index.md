@@ -74,9 +74,9 @@ However if I expand my results out to the top 15, there is one near me that I dr
 
 ### Step 4: Further research needed
 
-Something else caught my attention from reviewing the results above: when I looked at the Google maps directions, it seems the reported latitude and longitudes are not exactly where the Wawa building is, which results in errors on the order of tens of meters. When the results are as close as they are, where first place could be won or lost by measuring a few feet from the official coordinates, 
+Something else caught my attention from reviewing the results above: when I looked at the Google maps directions, it seems the reported latitude and longitudes are *not exactly* where the Wawa building is. This results in errors on the order of tens of meters. When the results are as close as they are, first place could be decided by measuring from a more correct location.
 
-Until I feel motivated enough to manually determine the entrance coordinates of each Wawa store, we will have to rely on Wawa's self reported, yet inaccurate, data.
+Until I feel motivated enough to manually determine the *true* coordinates of each Wawa store, we will have to rely on Wawa's self reported, yet inaccurate, data.
 
-Want to run the code yourself? Check it out on GitHub here! 
+Want to run the code yourself? [Check it out on GitHub here](https://github.com/elliscode/elliscodedotcom/tree/main/s3/blog/the-closest-two-wawas)! 
 
