@@ -14,13 +14,15 @@ p, ul, ol, li {
   color:#ddd;
 }
 
-img {
-  width:100%;
-}
-
 a img {
   width:100%;
   max-width:400px;
+}
+
+figure a, figure a img {
+  display:block;
+  width:100%;
+  max-width:100%;
 }
 
 .hero {
@@ -100,6 +102,16 @@ thead {
 }
 tbody {
   color:#ddd;
+}
+
+figure {
+  margin: 0;
+  margin-bottom: 20px;
+}
+
+figcaption {
+  color:white;
+  text-align:center;
 }
 
 /* Bigger than 0 */

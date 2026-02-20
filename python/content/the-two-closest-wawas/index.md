@@ -1,4 +1,4 @@
-Date: 2025-02-19
+Date: 2026-02-19
 
 ## How close are the two closest Wawa stores?
 
@@ -45,6 +45,8 @@ Basically, where I live, Wawa is Inevitable.
 
 When you perform a Google search for "how many wawas are there", you get a top result from a scraping website charging $85 for the dataset. 
 
+![Scraping website charges $85, but we can do it for free](../../../s3/blog/the-two-closest-wawas/010-wawa-dataset-purchase.png)
+
 Rather than spending any money on answering this silly question, we will simply scrape the data from the Wawa store locator API ourselves.
 
 ### Step 1 (really): Scrape the data yourself
@@ -65,13 +67,17 @@ Once I had this figured out, I added this query to a pyton script, and gave the 
 
 Every time I get a list of 50 Wawas, I check if each Wawa was already found, and if not, add the furthest new Wawa that is north-west, south-east, south-west, and north-east of my position to the list of seed coordinates. This ensures I branch out as far as I can from each seed coordinate, while not searching any areas that don't have any Wawa locations.
 
-![The seed data point in orange, the found locations in grey, and the next locations to search in red](../../../s3/blog/the-two-closest-wawas/005-finding-algoritm.png)
+![The seed data point in orange, the found locations in grey, and the next locations to search in red](../../../s3/blog/the-two-closest-wawas/005-finding-algorithm.png)
 
 To avoid being throttled, I left a generous 45 second `sleep` in between each call to the location finder endpoint.
 
-This left me with a list of 1,198 Wawa locations. However one of the results returned from this endpoint is invalid, so in reality we are left with a true count of 1,197 Wawa locations. This count is confirmed by the scraping website I found earlier, so I have a somewhat high confidence in its accuracy.
+This left me with a list of 1,198 Wawa locations. However one of the results returned from this endpoint is a duplicate with an invalid identifier, so in reality we are left with a true count of 1,197 Wawa locations. 
 
 ![The bad data point, which seems to be a duplicate of a good data point, with an invalid ID](../../../s3/blog/the-two-closest-wawas/004-bad-data.png)
+
+This count is confirmed by the scraping website I found earlier, so I have a somewhat high confidence in its accuracy.
+
+![Scraping website has the same count I do](../../../s3/blog/the-two-closest-wawas/011-wawa-dataset-summary.png)
 
 ### Step 2: Find how far each Wawa is from all the others
 
@@ -87,5 +93,5 @@ When I looked at the Google maps directions I generated above, it seems the repo
 
 Until I feel motivated enough to manually determine the *true* coordinates of each Wawa store, we will have to rely on Wawa's self reported, yet inaccurate, data.
 
-Want to run the code yourself? [Check it out on GitHub here](https://github.com/elliscode/elliscodedotcom/tree/main/s3/blog/the-two-closest-wawas)! 
+Want to run the code yourself? [Check it out on GitHub here](https://github.com/elliscode/elliscodedotcom/tree/main/python/content/the-two-closest-wawas)! 
 
