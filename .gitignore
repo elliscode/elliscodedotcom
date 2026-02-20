@@ -170,3 +170,6 @@ Pipfile.lock
 index.html
 
 *.json
+
+
+*.csv

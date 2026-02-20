@@ -67,7 +67,7 @@ pre, code {
 
 pre {
   border: 1px solid #666;
-  padding-top: 30px;
+  /* padding-top: 30px; */
   border-radius:10px;
   /* background-image:url('../images/stoplight.svg'); */
   /* background-repeat:no-repeat; */
@@ -83,7 +83,7 @@ code {
 
 p:has(> img:first-child) {
   border: 1px solid #666;
-  padding-top: 30px;
+  /* padding-top: 30px; */
   border-radius:10px;
   overflow:hidden;
 }
@@ -112,7 +112,7 @@ tbody {
     text-align: left;
     height:auto!important;
   }
-  p {
+  p, ul, ol {
     font-size: 14px;
   }
 }
@@ -126,7 +126,7 @@ tbody {
     padding: 2.5rem 0;
     text-align: left;
   }
-  p {
+  p, ul, ol {
     font-size: 17px;
   }
 }
@@ -139,7 +139,7 @@ tbody {
   .hero {
     padding: 5rem 0;
   }
-  p {
+  p, ul, ol {
     font-size: 20px;
   }
 }

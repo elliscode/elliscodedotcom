@@ -51,10 +51,10 @@ for i in range(len(keys)):
 
 distances = list(distance_map.keys())
 distances.sort()
-print(f"| Distance (meters) | Store A | Store B | Google Maps Link |")
-print(f"|-------------------|---------|---------|------------------|")
+print(f"| Distance (meters) | Store A | Store B | State | Google Maps Link |")
+print(f"|-------------------|---------|---------|-------|------------------|")
 for i in range(15):
     distance = distances[i]
     for pair in distance_map[distance]:
-        print(f"| {distance:.0f} | [{data[pair[0]]['name']}](https://www.wawa.com/locations/{pair[0]}) | [{data[pair[1]]['name']}](https://www.wawa.com/locations/{pair[1]}) | [Directions](https://www.google.com/maps/dir/?api=1&travelmode=walking&origin={data[pair[0]]['coordinates']['latitude']},{data[pair[0]]['coordinates']['longitude']}&destination={data[pair[1]]['coordinates']['latitude']},{data[pair[1]]['coordinates']['longitude']}) |")
+        print(f"| {distance:.0f} | [{data[pair[0]]['name']}](https://www.wawa.com/locations/{pair[0]}) | [{data[pair[1]]['name']}](https://www.wawa.com/locations/{pair[1]}) | {data[pair[0]]['address']['state']} | [Directions](https://www.google.com/maps/dir/?api=1&travelmode=walking&origin={data[pair[0]]['coordinates']['latitude']},{data[pair[0]]['coordinates']['longitude']}&destination={data[pair[1]]['coordinates']['latitude']},{data[pair[1]]['coordinates']['longitude']}) |")
 
