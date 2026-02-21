@@ -97,6 +97,22 @@ p > img {
   display:block;
 }
 
+blockquote {
+  border: 1px solid #666;
+  border-radius:10px;
+  overflow:hidden;
+  background-color:#111;
+  margin: 0;
+  margin-bottom: 20px;
+  padding: 20px;
+}
+
+blockquote > p:last-child {
+  margin-bottom:0;
+}
+
+
+
 thead {
   color:white;
 }

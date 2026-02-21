@@ -73,7 +73,12 @@ for folder in CONTENT_DIR.iterdir():
             md_text
         )
 
-        blog_title = folder.name.replace("-", " ").title()
+        if md.Meta.get('title'):
+            blog_title = md.Meta['title'][0]
+        else:
+            blog_title = folder.name.replace("-", " ").title()
+
+        html_content = f"<h1>{blog_title}</h1>{html_content}"
 
         # Render template
         output = template.render(

@@ -1,0 +1,2 @@
+
+Of course in a story like this, you get the full spectrum of addict stereotypes. You have the "I can stop anytime I want" addicts, whose claims are scoffed at by the alcoholic main character for just how hypocritical they sound to him. You have the heavy users of the technology losing their teeth, grinning their increasingly toothless smiles as the story moves forward. There's even a scene towards the end where everyone in town is digging a giant hole in the woods, very reminiscent of stereotypical meth-head behavior.

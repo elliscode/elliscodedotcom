@@ -1,6 +1,5 @@
+Title: The Two Closest Wawas
 Date: 2026-02-19
-
-## How close are the two closest Wawa stores?
 
 The two closest Wawa locations are 494 meters apart, located at 912-916 Walnut Street and 150 South Independence Mall West in Philadelphia, Pennsylvania.
 
