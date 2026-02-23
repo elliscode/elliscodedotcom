@@ -1,4 +1,7 @@
+import re
 from pathlib import Path
+
+from PIL import Image
 from jinja2 import Environment, FileSystemLoader
 
 from markdown.treeprocessors import Treeprocessor
@@ -6,6 +9,24 @@ from markdown.extensions import Extension
 import markdown
 from xml.etree import ElementTree
 
+image_regex = re.compile(r'<img([^>]*) src="([^"]+)" />')
+
+class ImageReplacer:
+    def __init__(self, directory_name):
+        self.directory_name = directory_name
+
+    def add_dimensions(self, match):
+        before = match.group(1)
+        src = match.group(2)
+
+        try:
+            with Image.open(Path.joinpath(self.directory_name, src)) as img:
+                width, height = img.size
+        except Exception as e:
+            # If image can't be opened, return original tag
+            return match.group(0)
+
+        return f'<img{before} src="{src}" width="{width}" height="{height}" />'
 
 class ImageToFigure(Treeprocessor):
     def run(self, root):
@@ -73,6 +94,11 @@ for folder in CONTENT_DIR.iterdir():
             md_text
         )
 
+        post_output_dir = OUTPUT_DIR / folder.name
+        imgrep = ImageReplacer(post_output_dir)
+
+        html_content = image_regex.sub(imgrep.add_dimensions, html_content)
+
         if md.Meta.get('title'):
             blog_title = md.Meta['title'][0]
         else:
@@ -83,11 +109,12 @@ for folder in CONTENT_DIR.iterdir():
         # Render template
         output = template.render(
             content=html_content,
-            title=blog_title
+            title=blog_title,
+            folder=folder.name,
+            thumbnailurl=md.Meta.get('thumbnailurl', ['../../images/favicon_larger.png'])[0]
         )
 
         # Create output directory
-        post_output_dir = OUTPUT_DIR / folder.name
         post_output_dir.mkdir(parents=True, exist_ok=True)
 
         # Write file

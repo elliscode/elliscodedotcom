@@ -1,66 +1,39 @@
+* {
+  margin:0;
+  padding:0;
+  color: #eee;
+}
+
 body {
   background-color:#282828;
 }
 
-h1, h2, h3 {
+h1, h2, h3, h4, h5, h6 {
   color:#fff;
+  font-weight:300;
+  font-family: Raleway;
 }
 
-h3 {
-  font-size:2em;
+#nav a {
+  font-family: Raleway;
 }
 
-p, ul, ol, li {
+* {
   color:#ddd;
+  font-family: Verdana;
 }
 
 a img {
   width:100%;
   max-width:400px;
+  height: auto;
 }
 
 figure a, figure a img {
   display:block;
   width:100%;
-  max-width:100%;
-}
-
-.hero {
-  position:relative;
-  margin-bottom: 0rem;
-  padding-bottom: 0em!important;
-  background-color:#333;
-  height:auto!important;
-  box-sizing: border-box;
-  z-index:4;
-  /* box-shadow: 0px 0px 10px #222; */
-}
-
-.hero h2 {
-	 font-size:2rem;
-}
-
-.nav {
-  position:sticky;
-  top:0px;
-  margin-bottom: 5rem;
-  padding-bottom: 0em!important;
-  background-color:#333;
-  height:auto!important;
-  box-sizing: border-box;
-  z-index:4;
-  box-shadow: 0px 0px 10px #222;
-}
-
-.nav a {
-  position:relative;
-  font-size:1.5em;
-  /* margin-right:2em; */
-  text-decoration: none;
-  /* border:3px black solid; */
-  padding:0.5em 2em 0.5em 0em;
-  box-sizing:border-box;
-  display:inline-block;
+  max-width:600px;
+  height: auto;
 }
 
 pre, code {
@@ -69,10 +42,7 @@ pre, code {
 
 pre {
   border: 1px solid #666;
-  /* padding-top: 30px; */
   border-radius:10px;
-  /* background-image:url('../images/stoplight.svg'); */
-  /* background-repeat:no-repeat; */
 }
 
 code {
@@ -85,7 +55,6 @@ code {
 
 p:has(> img:first-child) {
   border: 1px solid #666;
-  /* padding-top: 30px; */
   border-radius:10px;
   overflow:hidden;
 }
@@ -111,35 +80,22 @@ blockquote > p:last-child {
   margin-bottom:0;
 }
 
-
-
-thead {
-  color:white;
-}
-tbody {
-  color:#ddd;
-}
-
 figure {
   margin: 0;
   margin-bottom: 20px;
+  display:flex;
+  align-items:center;
+  flex-direction:column;
 }
 
 figcaption {
-  color:white;
+  color:#ccc;
   text-align:center;
+  margin-top: 0.8em;
 }
 
 /* Bigger than 0 */
 @media (min-width: 0px) {
-  .section {
-    padding: 0px;
-  }
-  .hero {
-    padding: 1.5rem 0;
-    text-align: left;
-    height:auto!important;
-  }
   p, ul, ol {
     font-size: 14px;
   }
@@ -147,27 +103,418 @@ figcaption {
 
 /* Bigger than 550 */
 @media (min-width: 550px) {
-  .section {
-    padding: 0px;
-  }
-  .hero {
-    padding: 2.5rem 0;
-    text-align: left;
-  }
   p, ul, ol {
     font-size: 17px;
   }
 }
 
-/* Bigger than 750 */
-@media (min-width: 750px) {
-  .section {
-    padding: 0px;
+#header {
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  background-color:rgb(51, 51, 51);
+}
+#nav {
+  display:flex;
+  justify-content: center;
+  background-color:rgb(51, 51, 51);
+  box-shadow: 0px 0px 10px #222;
+}
+#nav > div {
+  display:flex;
+  align-items: center;
+  width:100%;
+}
+
+a {
+  text-decoration: none;
+  color: #1EAEDB;
+}
+a:hover {
+  text-decoration: underline;
+  color: #56d8ff;
+}
+a:active {
+  text-decoration: underline;
+  color: #1789ac;
+}
+.tiles {
+  display:flex;
+  justify-content:center;
+}
+.tiles > div {
+  display:flex;
+  flex-direction: row;
+  flex-wrap:wrap;
+  justify-content: center;
+}
+.tiles > div > div {
+  display:flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.content {
+  display:flex;
+  justify-content:center;
+}
+
+.directory {
+  display:flex;
+  justify-content:center;
+}
+.directory ul {
+  list-style-type: none;
+}
+.directory li {
+  line-height:1.5;
+  margin-bottom:0.5em;
+}
+.content > div > * {
+  margin: 0.8em 0;
+}
+.directory > div > * {
+  margin: 0.8em 0;
+}
+blockquote, p {
+  line-height:1.6;
+}
+
+table {
+  border-collapse: collapse;
+  background: #2e2e2e;
+  font-size: 0.95rem;
+  display: block;
+  overflow: scroll;
+  width: fit-content;
+}
+
+table thead {
+  background: #1e1e1e;
+}
+
+table th {
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #eee;
+  padding: 0.9rem 1rem;
+  border-bottom: 1px solid #dee2e6;
+}
+
+table td {
+  padding: 0.9rem 1rem;
+  border-bottom: 1px solid #e9ecef;
+  color: #eee;
+}
+
+table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+table td:first-child {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 300px) {
+  h1, h2, h3, h4, h5, h6, p, ul, ol, li {
+    overflow-wrap: break-word;
   }
-  .hero {
-    padding: 5rem 0;
+  #header {
+    height: 60px;
+  }
+  #nav {
+    position: relative;
+  }
+  #nav > div {
+    margin: 0px 10px;
+    font-size: 14px;
+    height: 28px;
+    gap: 15px;
+    margin: 0px 5px;
+  }
+  .tiles h2 {
+    font-size:20px;
+  }
+  .tiles {
+    margin-top: 20px;
+  }
+  .tiles > div {
+    margin: 0px 5px;
+    gap: 20px;
+  }
+  .tiles > div > div {
+    max-width:230px;
+  }
+  .content > div {
+     margin: 0px 5px;
+  }
+  .directory > div {
+     margin: 0px 5px;
+  }
+  .directory ul {
+    font-size: 18px;
+  }
+  h1 {
+    font-size: 24px;
+    width:100%;
+     margin: 0px 5px;
+  }
+  h2 {
+    font-size: 22px;
+     margin: 0px 5px;
+  }
+  h3 {
+    font-size: 20px;
+     margin: 0px 5px;
+  }
+  h4 {
+    font-size: 18px;
+     margin: 0px 5px;
+  }
+  h5 {
+    font-size: 16px;
+     margin: 0px 5px;
+  }
+  h6 {
+    font-size: 14px;
+     margin: 0px 5px;
+  }
+  p, ul, ol {
+    font-size: 12px;
+  }
+  figcaption {
+    font-size: 10px;
+  }
+  .content {
+    margin-bottom:calc(100vh - 30px);
+  }
+  table {
+    max-width: calc(100vw - 10px);
+  }
+}
+@media (min-width:301px) and (max-width: 480px) {
+  #header {
+    height: 80px;
+  }
+  #nav {
+    position: sticky;
+    top:0;
+  }
+  #nav > div {
+    margin: 0px 10px;
+    font-size: 16px;
+    height: 32px;
+    gap: 15px;
+  }
+  .tiles h2 {
+    font-size:20px;
+  }
+  .tiles {
+    margin-top: 20px;
+  }
+  .tiles > div {
+    margin: 0px 10px;
+    gap: 20px;
+  }
+  .tiles > div > div {
+    max-width:280px;
+  }
+  .content > div {
+    margin: 0px 10px;
+  }
+  .directory > div {
+    margin: 0px 10px;
+  }
+  .directory ul {
+    font-size: 18px;
+  }
+  h1 {
+    font-size: 32px;
+    width:100%;
+    margin: 0px 10px;
+  }
+  h2 {
+    font-size: 28px;
+    margin: 0px 10px;
+  }
+  h3 {
+    font-size: 24px;
+    margin: 0px 10px;
+  }
+  h4 {
+    font-size: 20px;
+    margin: 0px 10px;
+  }
+  h5 {
+    font-size: 18px;
+    margin: 0px 10px;
+  }
+  h6 {
+    font-size: 16px;
+    margin: 0px 10px;
+  }
+  p, ul, ol {
+    font-size: 14px;
+  }
+  figcaption {
+    font-size: 12px;
+  }
+  .content {
+    margin-bottom:calc(100vh - 34px - 32px);
+  }
+  table {
+    max-width: calc(100vw - 20px);
+  }
+}
+@media (min-width: 481px) and (max-width: 939px) {
+  #header {
+    height: 100px;
+  }
+  #nav {
+    position: sticky;
+    top:0;
+  }
+  #nav > div {
+    margin: 0px 20px;
+    font-size: 20px;
+    height: 40px;
+    gap: 20px;
+  }
+  .tiles h2 {
+    font-size:20px;
+  }
+  .tiles {
+    margin-top: 20px;
+  }
+  .tiles > div {
+    margin: 0px 20px;
+    gap: 20px;
+  }
+  .tiles > div > div {
+    max-width:220px;
+  }
+  .content > div {
+    margin: 0px 20px;
+  }
+  .directory > div {
+    margin: 0px 20px;
+  }
+  .directory ul {
+    font-size: 20px;
+  }
+  h1 {
+    font-size: 40px;
+    width:100%;
+    margin: 0px 20px;
+  }
+  h2 {
+    font-size: 35px;
+    margin: 0px 20px;
+  }
+  h3 {
+    font-size: 30px;
+    margin: 0px 20px;
+  }
+  h4 {
+    font-size: 25px;
+    margin: 0px 20px;
+  }
+  h5 {
+    font-size: 20px;
+    margin: 0px 20px;
+  }
+  h6 {
+    font-size: 18px;
+    margin: 0px 20px;
+  }
+  p, ul, ol {
+    font-size: 16px;
+  }
+  figcaption {
+    font-size: 14px;
+  }
+  .content {
+    margin-bottom:calc(100vh - 40px - 40px);
+  }
+  table {
+    max-width: calc(100vw - 40px);
+  }
+}
+@media (min-width: 940px) {
+  #header {
+    height: 130px;
+  }
+  #nav {
+    position: sticky;
+    top:0;
+  }
+  #nav > div {
+    max-width: 900px;
+    font-size: 25px;
+    height: 60px;
+    gap: 30px;
+  }
+  .tiles h2 {
+    font-size:30px;
+  }
+  .tiles {
+    margin-top: 30px;
+  }
+  .tiles > div {
+    max-width:900px;
+    gap: 30px;
+  }
+  .tiles > div > div {
+    max-width:280px;
+  }
+  .content > div {
+    max-width: 900px; 
+  }
+  .directory > div {
+    max-width: 900px; 
+  }
+  .directory ul {
+    font-size: 25px;
+  }
+  h1 {
+    font-size: 50px;
+    width:100%;
+    max-width: 900px;
+  }
+  h2 {
+    font-size: 45px;
+    max-width: 900px;
+  }
+  h3 {
+    font-size: 40px;
+    max-width: 900px;
+  }
+  h4 {
+    font-size: 35px;
+    max-width: 900px;
+  }
+  h5 {
+    font-size: 30px;
+    max-width: 900px;
+  }
+  h6 {
+    font-size: 25px;
+    max-width: 900px;
   }
   p, ul, ol {
     font-size: 20px;
+  }
+  figcaption {
+    font-size: 16px;
+  }
+  .content {
+    margin-bottom:calc(100vh - 48px - 60px);
+  }
+  table {
+    max-width: calc(100vw - 40px);
   }
 }
