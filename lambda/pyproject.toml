@@ -1,0 +1,9 @@
+[project]
+name = "elliscode-blog-generate"
+version = "0.1.0"
+description = "Takes the markdown files and generates a HTML block directory"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "boto3>=1.42.55",
+]

@@ -218,7 +218,66 @@ table td:first-child {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
-
+#comments {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+#comments > * {
+  margin-left:0;
+  margin-right:0;
+}
+.author-comment {
+  display: flex;
+  flex-direction: column;
+}
+.author-comment textarea {
+  resize: vertical;
+}
+.author-comment > * {
+  background-color:#111;
+  color:#eee;
+  border: 1px solid #555;
+}
+.author-comment > *:first-child {
+  border-radius: 10px 10px 0px 0px;
+}
+.author-comment > *:last-child {
+  border-radius: 0px 0px 10px 10px;
+}
+.author-comment > button:hover {
+  background-color:#222;
+  cursor:pointer;
+}
+.author-comment > button:active {
+  background-color:#000;
+}
+.comment {
+  position:relative;
+  border: 1px solid #666;
+  background-color: #111;
+  color: #eee;
+  box-sizing: border-box;
+}
+.comment button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border: 1px solid #666;
+    background-color: #222;
+    color: white;
+    font-size: 20px;
+    min-width: 30px;
+    min-height: 30px;
+    border-radius: 5px;
+}
+.comment button:hover {
+  cursor:pointer;
+  background-color:#333;
+}
+.comment button:active {
+  background-color:#000;
+}
 @media (max-width: 300px) {
   h1, h2, h3, h4, h5, h6, p, ul, ol, li {
     overflow-wrap: break-word;
@@ -289,8 +348,17 @@ table td:first-child {
   figcaption {
     font-size: 10px;
   }
-  .content {
-    margin-bottom:calc(100vh - 30px);
+  #comments {
+    margin: 0px 5px;
+    min-height:calc(100vh - 30px);
+  }
+  .author-comment > * {
+    padding:6px;
+    font-size: 12px;
+  }
+  .comment {
+    padding: 5px;
+    border-radius: 5px;
   }
   table {
     max-width: calc(100vw - 10px);
@@ -363,8 +431,17 @@ table td:first-child {
   figcaption {
     font-size: 12px;
   }
-  .content {
-    margin-bottom:calc(100vh - 34px - 32px);
+  #comments {
+    margin: 0px 10px;
+    min-height:calc(100vh - 34px - 32px);
+  }
+  .author-comment > * {
+    padding: 7px;
+    font-size: 14px;
+  }
+  .comment {
+    padding: 10px;
+    border-radius: 10px;
   }
   table {
     max-width: calc(100vw - 20px);
@@ -437,8 +514,17 @@ table td:first-child {
   figcaption {
     font-size: 14px;
   }
-  .content {
-    margin-bottom:calc(100vh - 40px - 40px);
+  #comments {
+    margin: 0px 20px;
+    min-height:calc(100vh - 40px - 40px);
+  }
+  .author-comment > * {
+    padding: 8px;
+    font-size: 16px;
+  }
+  .comment {
+    padding: 20px;
+    border-radius: 20px;
   }
   table {
     max-width: calc(100vw - 40px);
@@ -511,8 +597,20 @@ table td:first-child {
   figcaption {
     font-size: 16px;
   }
-  .content {
-    margin-bottom:calc(100vh - 48px - 60px);
+  #comments {
+    min-height:calc(100vh - 48px - 60px);
+    align-items: center;
+  }
+  #comments > * {
+    width: 900px;
+  }
+  .author-comment > * {
+    padding: 10px;
+    font-size: 20px;
+  }
+  .comment {
+    padding: 30px;
+    border-radius: 30px;
   }
   table {
     max-width: calc(100vw - 40px);
