@@ -90,27 +90,60 @@ function renderComment(comment, yourCommentsInThisPost) {
   }
   let foundComment = undefined;
   if (yourCommentsInThisPost) {
-    foundComment = yourCommentsInThisPost.findIndex(x=>x.name==comment.name&&x.commentText==comment.commentText);
+    foundComment = yourCommentsInThisPost.findIndex(x=>x.name==comment.name&&x.commentText==comment.commentText&&x.time==comment.time);
   }
   if (foundComment >= 0) {
-    comment.password = yourCommentsInThisPost[foundComment].password;
+    comment.commentId = yourCommentsInThisPost[foundComment].commentId;
     yourCommentsInThisPost.splice(foundComment, 1);
   }
-  if (comment.password) {
+  if (comment.commentId) {
     const element = document.createElement('button');
     element.innerHTML = '&times;';
-    element.setAttribute('password', comment.password);
-    element.classList.add('close');
+    element.setAttribute('commentId', comment.commentId);
+    element.classList.add('delete');
+    element.addEventListener('click', deleteComment);
     div.appendChild(element);
   }
 
   commentsDiv.insertBefore(div, h3.nextElementSibling);
+}
+async function deleteComment(event) {
+  const commentId = event.target.getAttribute('commentId');
+  let response = await fetch('https://api.blog.elliscode.com/delete', {
+    method: "POST",
+    body: JSON.stringify({
+      commentId: commentId,
+      postId: folder
+    })
+  });
+  if (200 <= response.status && response.status < 300) {
+    const data = await response.json();
+    event.target.parentElement.remove();
+    try {
+      let yourCommentsString = localStorage.getItem('elliscode-comments-you-made');
+      let yourComments = JSON.parse(yourCommentsString);
+      let indexToDelete = yourComments.findIndex(x=>x.commentId==commentId);
+      yourComments.splice(indexToDelete, 1);
+      localStorage.setItem('elliscode-comments-you-made', JSON.stringify(yourComments));
+    } catch (e) {
+      localStorage.setItem('elliscode-comments-you-made', JSON.stringify([]));
+    }
+  } else {
+    try {
+      const data = await response.json();
+      console.log(data);
+    } catch {
+      console.log("Error displaying comments");
+    }
+  }
 }
 async function submitComment(event) {
   const nameElement = event.target.parentElement.querySelector('input');
   const textElement = event.target.parentElement.querySelector('textarea');
   const name = nameElement.value;
   const commentText = textElement.value;
+  nameElement.value = '';
+  textElement.value = '';
   if (!name || !commentText) {
     return;
   }
@@ -127,7 +160,8 @@ async function submitComment(event) {
     let yourComment = {
       name: name, 
       commentText: commentText, 
-      time: Math.round(Temporal.Now.instant().epochMilliseconds/1000), 
+      commentId: data.commentId,
+      time: data.time, 
       password: data.password,
       postId: folder
     };
@@ -149,3 +183,4 @@ async function submitComment(event) {
     }
   }
 }
+loadComments();

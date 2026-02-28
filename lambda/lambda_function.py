@@ -54,6 +54,8 @@ def route(event):
         return get_comments(event)
     if path_equals(event=event, method="POST", path="/comment"):
         return leave_comment(event)
+    if path_equals(event=event, method="POST", path="/delete"):
+        return delete_comment(event)
     if path_equals(event=event, method="GET", path="/ping2"):
         return format_response(event=event, http_code=200, body="pong")
 

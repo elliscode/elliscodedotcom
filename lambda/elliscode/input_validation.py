@@ -97,6 +97,14 @@ APPROVE_COMMENT_SCHEMA = {
     ],
 }
 
+DELETE_COMMENT_SCHEMA = {
+    "type": dict,
+    "fields": [
+        {"type": str, "name": "postId"},
+        {"type": str, "name": "commentId"},
+    ],
+}
+
 if __name__ == "__main__":
     print(
         is_valid_against_schema(

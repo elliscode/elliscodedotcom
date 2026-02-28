@@ -260,9 +260,6 @@ table td:first-child {
   box-sizing: border-box;
 }
 .comment button {
-    position: absolute;
-    top: 0;
-    right: 0;
     border: 1px solid #666;
     background-color: #222;
     color: white;
@@ -270,6 +267,13 @@ table td:first-child {
     min-width: 30px;
     min-height: 30px;
     border-radius: 5px;
+    padding: 10px 20px;
+}
+.comment .delete {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0px;
 }
 .comment button:hover {
   cursor:pointer;

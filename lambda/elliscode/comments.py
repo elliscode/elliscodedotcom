@@ -8,12 +8,14 @@ from .utils import (
     dynamo_obj_to_python_obj,
     create_id,
     authenticate,
+    alert_admin,
 )
 from .input_validation import (
     validate_schema,
     LEAVE_COMMENT_SCHEMA,
     GET_COMMENTS_SCHEMA,
     APPROVE_COMMENT_SCHEMA,
+    DELETE_COMMENT_SCHEMA,
 )
 import time
 
@@ -40,19 +42,19 @@ def leave_comment(event):
 
     log("Writing post to the DB", event)
     password = create_id(64)
+    comment_json = {
+        "key1": f"unreviewed_comment",
+        "key2": f"{int(time.time())}_{password}",
+        "text": f"{body['commentText']}",
+        "user": f"{body['name']}",
+        "password": password,
+        "post": f"{body['postId']}",
+        "time": f"{int(time.time())}",
+        "expiration": int(time.time()) + (30 * 24 * 60 * 60),
+    }
     write_response = dynamo.put_item(
         TableName=TABLE_NAME,
-        Item=python_obj_to_dynamo_obj(
-            {
-                "key1": f"unreviewed_comment",
-                "key2": f"{int(time.time())}_{password}",
-                "text": f"{body['commentText']}",
-                "user": f"{body['name']}",
-                "password": password,
-                "post": f"{body['postId']}",
-                "time": f"{int(time.time())}",
-            }
-        ),
+        Item=python_obj_to_dynamo_obj(comment_json),
     )
     if (
         "ResponseMetadata" not in write_response
@@ -64,11 +66,27 @@ def leave_comment(event):
             http_code=403,
             body="Forbidden",
         )
+    response = dynamo.get_item(
+        TableName=TABLE_NAME,
+        Key=python_obj_to_dynamo_obj({"key1": "admin", "key2": "alert", }),
+    )
+    if "Item" not in response:
+        alert_admin(f"Someone left a comment on your blog post {body['postId']}, go to the approval page and review it")
+        dynamo.put_item(
+            TableName=TABLE_NAME,
+            Item=python_obj_to_dynamo_obj({
+                "key1": "admin",
+                "key2": "alert",
+                "expiration": int(time.time()) + (60 * 60),
+            }),
+        )
     return format_response(
         event=event,
         http_code=200,
         body={
+            "commentId": comment_json['key2'],
             "password": password,
+            "time": comment_json['time'],
         },
     )
 
@@ -89,7 +107,8 @@ def get_approvable_comments(event, user_data, body):
             "commentText": python_item["text"],
             "time": python_item["time"],
             "name": python_item["user"],
-            "id":  python_item["key2"],
+            "commentId":  python_item["key2"],
+            "postId": python_item["post"],
         })
     return format_response(
         event=event,
@@ -119,7 +138,6 @@ def approve_comment(event, user_data, body):
     post_json = dynamo_obj_to_python_obj(response["Item"])
     delete_key = {"key1": post_json['key1'], "key2": post_json['key2']}
     post_json['key1'] = f"comment_{post_json['post']}"
-    post_json['key2'] = f"{post_json['time']}"
 
     dynamo.delete_item(
         TableName=TABLE_NAME,
@@ -180,7 +198,7 @@ def get_comments(event):
         python_item = dynamo_obj_to_python_obj(item)
         output.append({
             "commentText": python_item["text"],
-            "time": python_item["key2"],
+            "time": python_item["time"],
             "name": python_item["user"],
         })
     return format_response(
@@ -191,4 +209,28 @@ def get_comments(event):
 
 
 def delete_comment(event):
-    pass
+    log("Attempting to parse body from event")
+    body = parse_body(event.get('body'))
+    log("Validating body", body)
+    body = validate_schema(body, DELETE_COMMENT_SCHEMA)
+    delete_key = {
+        "key1": f"comment_{body['postId']}",
+        "key2": body['commentId']
+    }
+    dynamo.delete_item(
+        TableName=TABLE_NAME,
+        Key=python_obj_to_dynamo_obj(delete_key),
+    )
+    delete_key = {
+        "key1": "unreviewed_comment",
+        "key2": body['commentId']
+    }
+    dynamo.delete_item(
+        TableName=TABLE_NAME,
+        Key=python_obj_to_dynamo_obj(delete_key),
+    )
+    return format_response(
+        event=event,
+        http_code=200,
+        body="Successfully deleted comment",
+    )
