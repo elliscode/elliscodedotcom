@@ -72,9 +72,9 @@ template = env.get_template("post.html")
 
 current_directory_list = []
 
-md = markdown.Markdown(extensions=["extra", "codehilite", "toc", "meta", FigureExtension()])
 
 for folder in CONTENT_DIR.iterdir():
+    md = markdown.Markdown(extensions=["extra", "codehilite", "toc", "meta", FigureExtension()])
     if folder.is_dir():
         md_file = folder / "index.md"
 

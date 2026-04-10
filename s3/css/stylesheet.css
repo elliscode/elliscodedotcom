@@ -282,6 +282,12 @@ table td:first-child {
 .comment button:active {
   background-color:#000;
 }
+.content ul {
+  margin-left: 1em;
+}
+.content li {
+  line-height: 1.5em;
+}
 @media (max-width: 300px) {
   h1, h2, h3, h4, h5, h6, p, ul, ol, li {
     overflow-wrap: break-word;
