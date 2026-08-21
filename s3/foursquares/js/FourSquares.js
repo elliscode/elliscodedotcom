@@ -210,6 +210,19 @@ Pieces.findCenterPoints = function (piece) {
     output.y = 2.75 - (height / 2) - minY + (GameBoard.contentHeight - GameBoard.visualHeight);
     return output;
 }
+Pieces.findBounds = function (piece) {
+    let minX = Infinity;
+    let maxX = -Infinity;
+    let minY = Infinity;
+    let maxY = -Infinity;
+    for (let square of piece.squares) {
+        minX = Math.min(minX, square[0]);
+        maxX = Math.max(maxX, square[0]);
+        minY = Math.min(minY, square[1]);
+        maxY = Math.max(maxY, square[1]);
+    }
+    return { minX, maxX, minY, maxY };
+}
 
 const NextThree = {};
 NextThree.canvas = document.getElementById('next-three');
@@ -427,16 +440,58 @@ Graphics.drawBoard = function (board) {
         y++;
     }
 }
-Graphics.drawGhost = function (piece, x, y) {
+Graphics.computeGhostY = function (piece, x, y) {
     let shouldStay = FourSquares.checkIfItShouldStay(piece, x, y);
     while (!shouldStay && y < GameBoard.content.length) {
         y++;
         shouldStay = FourSquares.checkIfItShouldStay(piece, x, y);
     }
+    return y;
+}
+Graphics.drawGhost = function (piece, x, y) {
+    y = Graphics.computeGhostY(piece, x, y);
     Graphics.context.fillStyle = "rgba(255,255,255,0.2)";
     for (let part of piece.squares) {
         Graphics.context.fillRect(0 + 3 + (20 * (part[0] + x)) - 1, 0 + 3 + (20 * (part[1] + y - (GameBoard.contentHeight - GameBoard.visualHeight))) - 1, 20, 20);
     }
+}
+Graphics.drawLabel = function (context, text, x, y, textAlign, textBaseline, maxX, maxY) {
+    let fontSize = Controls.indicatorFontSize;
+    x = Math.max(2, Math.min(maxX - 2, x));
+    y = Math.max(fontSize - 3, Math.min(maxY - 2, y));
+    context.font = 'bold ' + fontSize + 'px sans-serif';
+    context.textAlign = textAlign;
+    context.textBaseline = textBaseline;
+    context.lineWidth = 3;
+    context.strokeStyle = '#000';
+    context.strokeText(text, x, y);
+    context.fillStyle = '#fff';
+    context.fillText(text, x, y);
+}
+Graphics.drawPieceIndicators = function (context, piece, x, y) {
+    let bounds = Pieces.findBounds(piece);
+    let offset = GameBoard.contentHeight - GameBoard.visualHeight;
+    let left = 3 + (20 * (bounds.minX + x));
+    let right = 3 + (20 * (bounds.maxX + x + 1));
+    let top = Math.max(3, 3 + (20 * (bounds.minY + y - offset)));
+    let bottom = Math.min(GameBoard.canvas.height - 3, 3 + (20 * (bounds.maxY + y - offset + 1)));
+    let midX = (left + right) / 2;
+    let midY = (top + bottom) / 2;
+    let labels = Controls.actionLabels;
+    let scale = Controls.indicatorFontSize / 12;
+    Graphics.drawLabel(context, labels.rotateCCW, left - (2 * scale), top - (4 * scale), 'right', 'bottom', GameBoard.canvas.width, GameBoard.canvas.height);
+    Graphics.drawLabel(context, labels.rotateCW, right + (2 * scale), top - (4 * scale), 'left', 'bottom', GameBoard.canvas.width, GameBoard.canvas.height);
+    Graphics.drawLabel(context, labels.left, left - (2 * scale), midY, 'right', 'middle', GameBoard.canvas.width, GameBoard.canvas.height);
+    Graphics.drawLabel(context, labels.right, right + (2 * scale), midY, 'left', 'middle', GameBoard.canvas.width, GameBoard.canvas.height);
+    Graphics.drawLabel(context, labels.softDrop, midX, bottom + (12 * scale), 'center', 'top', GameBoard.canvas.width, GameBoard.canvas.height);
+
+    let ghostY = Graphics.computeGhostY(piece, x, y);
+    let ghostTop = Math.max(3, 3 + (20 * (bounds.minY + ghostY - offset)));
+    Graphics.drawLabel(context, labels.hardDrop, midX, ghostTop - (4 * scale), 'center', 'bottom', GameBoard.canvas.width, GameBoard.canvas.height);
+}
+Graphics.drawHoldIndicator = function () {
+    let scale = Controls.indicatorFontSize / 12;
+    Graphics.drawLabel(HoldPiece.context, Controls.actionLabels.hold, HoldPiece.canvas.width - (4 * scale), HoldPiece.canvas.height - (4 * scale), 'right', 'bottom', HoldPiece.canvas.width, HoldPiece.canvas.height);
 }
 
 const ScoreBoard = {};
@@ -596,11 +651,13 @@ FourSquares.draw = function () {
     } else {
         Graphics.drawPiece(Graphics.context, GameBoard.currentPiece, GameBoard.currentX, GameBoard.currentY);
     }
+    Graphics.drawPieceIndicators(Graphics.context, GameBoard.currentPiece, GameBoard.currentX, GameBoard.currentY);
     HoldPiece.context.clearRect(0, 0, HoldPiece.canvas.width, HoldPiece.canvas.height);
     if (HoldPiece.piece != undefined) {
         positionOffset = Pieces.findCenterPoints(HoldPiece.piece);
         Graphics.drawPiece(HoldPiece.context, HoldPiece.piece, positionOffset.x, positionOffset.y, 'rgba(0,0,0,0.5)');
     }
+    Graphics.drawHoldIndicator();
 
     NextThree.context.clearRect(0, 0, NextThree.canvas.width, NextThree.canvas.height);
     yOffset = 0;
@@ -660,6 +717,19 @@ FourSquares.isNewPieceOk = function (newPiece, currentX, currentY) {
 }
 
 const Controls = {};
+Controls.isKaiOS = /KAIOS/i.test(navigator.userAgent);
+Controls.actionLabels = Controls.isKaiOS ? {
+    rotateCW: '2', rotateCCW: '7',
+    left: '4', right: '6',
+    softDrop: '8', hardDrop: '0',
+    hold: 'Call'
+} : {
+    rotateCW: '↑', rotateCCW: 'Z',
+    left: '←', right: '→',
+    softDrop: '↓', hardDrop: 'Spc',
+    hold: 'Shift'
+};
+Controls.indicatorFontSize = Controls.isKaiOS ? 22 : 12;
 Controls.rotatePiece = function (rotationDirection) {
     let newPiece = {};
     newPiece.type = GameBoard.currentPiece.type;
